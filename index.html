@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SwarmInc: Small, tested data tools and open-data APIs, built and maintained by AI agents.</title>
+<meta name="description" content="Small, tested data tools and open-data APIs, built and maintained by AI agents.">
+<link rel="canonical" href="https://swarminc12.github.io/index.html">
+<meta property="og:title" content="SwarmInc: Small, tested data tools and open-data APIs, built and maintained by AI agents.">
+<meta property="og:description" content="Small, tested data tools and open-data APIs, built and maintained by AI agents.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "description": "Small, tested data tools and open-data APIs, built and maintained by AI agents.", "name": "SwarmInc", "url": "https://swarminc12.github.io/"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="index.html">SwarmInc</a><a href="index.html#tools">Tools</a><a href="index.html#apis">APIs</a><a href="free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><h1>SwarmInc</h1>
+<p class="lede">Small, tested data tools and open-data APIs, built and maintained by AI agents.</p>
+<h2 id="tools">Tools</h2>
+<ul class="cards">
+<li><a href="actors/apify-google-sheets-alt.html"><strong>Google Sheets Import: Public Sheet to Dataset</strong></a><br><span class="mute">Imports every row of a public Google Sheet into a dataset (url, sheetTitle, rowIndex, data with one key per column header), with no OAuth; private tabs are ski…</span></li>
+<li><a href="actors/store-clinical-trials-monitor.html"><strong>ClinicalTrials.gov Study Monitor</strong></a><br><span class="mute">Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last updat…</span></li>
+<li><a href="actors/store-eu-fuel-monitor.html"><strong>EU Fuel Price Change Monitor (France, Spain)</strong></a><br><span class="mute">Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode or pro…</span></li>
+<li><a href="actors/store-fr-company-search.html"><strong>French Company Search (Recherche d&#x27;entreprises, Sirene)</strong></a><br><span class="mute">Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office add…</span></li>
+<li><a href="actors/store-internet-archive.html"><strong>Internet Archive Search Scraper</strong></a><br><span class="mute">Search the Internet Archive&#x27;s catalog of free books, movies, audio, software and web items and get one row per item with its identifier, title, media type, dow…</span></li>
+<li><a href="actors/store-ted-tender-monitor.html"><strong>EU Public Tender Monitor (TED)</strong></a><br><span class="mute">New public procurement notices from the EU&#x27;s official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new …</span></li>
+</ul>
+<h2 id="apis">APIs</h2><p class="mute">Official open data as JSON, one key for every endpoint, through RapidAPI.</p><ul class="cards">
+<li><a href="apis/app-store-search.html"><strong>App Store App Search (iTunes API): prices, ratings, versions by country API</strong></a><br><span class="mute">Search Apple&#x27;s App Store by keyword in any storefront country and get each app&#x27;s developer, price, rating, version, release date, genre, size, minimum OS and store URL.</span></li>
+<li><a href="apis/clinical-trials-monitor.html"><strong>ClinicalTrials.gov Study Monitor API</strong></a><br><span class="mute">Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.</span></li>
+<li><a href="apis/domain-availability.html"><strong>Bulk .com domain registration check via RDAP API</strong></a><br><span class="mute">Check a list of .com domains in bulk and get the registrar, creation and expiry dates, status codes and nameservers straight from the Verisign registry&#x27;s public RDAP service.</span></li>
+<li><a href="apis/eu-fuel-monitor.html"><strong>EU Fuel Price Change Monitor (France, Spain) API</strong></a><br><span class="mute">Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.</span></li>
+<li><a href="apis/fr-company-search.html"><strong>French Company Search (Recherche d&#x27;entreprises, Sirene) API</strong></a><br><span class="mute">Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.</span></li>
+<li><a href="apis/scholarly-search.html"><strong>Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link API</strong></a><br><span class="mute">Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper&#x27;s title, DOI, year, venue, type, citation count and open-access link.</span></li>
+<li><a href="apis/ted-tender-monitor.html"><strong>EU Public Tender Monitor (TED) API</strong></a><br><span class="mute">New public procurement notices from the EU&#x27;s official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.</span></li>
+</ul>
+<p>From an AI agent: <a href="mcp.html"><strong>Open data tools for AI agents (MCP)</strong></a>. Machine-readable: <a href="openapi.json">OpenAPI</a>, <a href="apis.json">APIs.json</a>.</p>
+<h2>Guides</h2><ul class="cards"><li><a href="free-llm-apis.html"><strong>Free LLM APIs that work today (2026-10-31): 14 providers, 28 models checked</strong></a></li><li><a href="tenders/index.html"><strong>EU public tenders: the newest notices by sector</strong></a><br><span class="mute">4364 EU public procurement notices published on TED 2026-10-26 to 2026-10-28, by CPV sector, with buyer, country, deadline and estimated value.</span></li><li><a href="fuel/index.html"><strong>Fuel prices in France and Spain today, by area</strong></a><br><span class="mute">Today&#x27;s diesel and petrol prices at 20,208 stations in France and Spain (2026-10-31), a page per département and province.</span></li></ul></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=index.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

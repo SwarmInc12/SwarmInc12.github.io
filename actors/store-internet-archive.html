@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Internet Archive Scraper: Search Books &amp; Video | SwarmInc</title>
+<meta name="description" content="Search the Internet Archive by query or collection and get identifier, title, media type, publish date and download count for up to 2,000 items per run.">
+<link rel="canonical" href="https://swarminc12.github.io/actors/store-internet-archive.html">
+<meta property="og:title" content="Internet Archive Scraper: Search Books &amp; Video | SwarmInc">
+<meta property="og:description" content="Search the Internet Archive by query or collection and get identifier, title, media type, publish date and download count for up to 2,000 items per run.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "DeveloperApplication", "description": "Search the Internet Archive by query or collection and get identifier, title, media type, publish date and download count for up to 2,000 items per run.", "name": "Internet Archive Search Scraper", "offers": {"@type": "Offer", "description": "$0.80 per 1,000 results", "price": "0.00080", "priceCurrency": "USD"}, "operatingSystem": "Web (Apify platform)", "publisher": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://apify.com/nonstop_poacher/store-internet-archive"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">Apify Actor &middot; EDUCATION, DEVELOPER_TOOLS</p>
+<h1>Internet Archive Search Scraper</h1>
+<p class="lede">Search the Internet Archive&#x27;s catalog of free books, movies, audio, software and web items and get one row per item with its identifier, title, media type, dow…</p>
+<p>Search the Internet Archive&#x27;s catalog of free books, movies, audio, software and web items and get one row per item from archive.org&#x27;s public advanced-search A…</p>
+<p><a class="btn" href="https://apify.com/nonstop_poacher/store-internet-archive">Run it on the Apify Store</a> <span class="mute">&nbsp;$0.80 per 1,000 results, billed by Apify; Apify's free plan includes monthly credit.</span></p>
+<h2>Inputs</h2><div class="table"><table><tr><th>Field</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>query</code></td><td>string</td><td>Search query: Internet Archive search query, e.g. collection:prelinger or title:(moon landing) AND mediatype:movies.</td><td><code>&quot;collection:prelinger&quot;</code></td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>Max results: Stop after this many results (keeps a run&#x27;s cost predictable).</td><td><code>2000</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>identifier</code> <span class="mute">(always set)</span></td><td>id</td></tr>
+<tr><td><code>title</code> <span class="mute">(always set)</span></td><td>text</td></tr>
+<tr><td><code>mediatype</code></td><td>text</td></tr>
+<tr><td><code>publicdate</code></td><td>text</td></tr>
+<tr><td><code>downloads</code></td><td>integer</td></tr>
+</table></div>
+<h2>Sample output</h2><p class="mute">The first 3 results of its latest test run on the platform (long values shortened).</p>
+<pre>[
+  {
+    &quot;downloads&quot;: 12552,
+    &quot;identifier&quot;: &quot;0001_Beef_Rings_the_Bell_00_00_41_00&quot;,
+    &quot;mediatype&quot;: &quot;movies&quot;,
+    &quot;publicdate&quot;: &quot;2012-05-22T20:49:25Z&quot;,
+    &quot;title&quot;: &quot;Beef Rings the Bell&quot;
+  },
+  {
+    &quot;downloads&quot;: 12270,
+    &quot;identifier&quot;: &quot;0001_Let_Us_Break_Bread_Together_00_00_24_00&quot;,
+    &quot;mediatype&quot;: &quot;movies&quot;,
+    &quot;publicdate&quot;: &quot;2013-09-30T18:06:11Z&quot;,
+    &quot;title&quot;: &quot;Let Us Break Bread Together&quot;
+  },
+  {
+    &quot;downloads&quot;: 5755,
+    &quot;identifier&quot;: &quot;0002_Baking_Industry_The_02_49_25_00&quot;,
+    &quot;mediatype&quot;: &quot;movies&quot;,
+    &quot;publicdate&quot;: &quot;2012-05-22T20:39:00Z&quot;,
+    &quot;title&quot;: &quot;Baking Industry, The&quot;
+  }
+]</pre>
+<h2>Call it from code</h2><p>With the Apify API (one request; the response is the results):</p>
+<pre>curl -X POST &quot;https://api.apify.com/v2/acts/nonstop_poacher~store-internet-archive/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{&quot;maxItems&quot;: 2000, &quot;query&quot;: &quot;collection:prelinger&quot;}&#x27;</pre>
+<p>With the Python client (<code>pip install apify-client</code>):</p>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;nonstop_poacher/store-internet-archive&quot;).call(run_input={&#x27;maxItems&#x27;: 2000, &#x27;query&#x27;: &#x27;collection:prelinger&#x27;})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</pre>
+<p>From an AI agent: connect <a href="https://mcp.apify.com">Apify's MCP server</a> and add the Actor <code>nonstop_poacher/store-internet-archive</code>.</p>
+<h2>Questions</h2>
+<p><strong>What does it cost?</strong> $0.80 per 1,000 results, charged per result through your Apify account. You pay only for results it returns.</p>
+<p><strong>Something wrong?</strong> Open an issue on the Issues tab of its Store page.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=actors/store-internet-archive.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

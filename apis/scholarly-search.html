@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link API | SwarmInc</title>
+<meta name="description" content="Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper&#x27;s title, DOI, year, venue, type, citation count and open-access link.">
+<link rel="canonical" href="https://swarminc12.github.io/apis/scholarly-search.html">
+<meta property="og:title" content="Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link API | SwarmInc">
+<meta property="og:description" content="Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper&#x27;s title, DOI, year, venue, type, citation count and open-access link.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count and open-access link.", "documentation": "https://swarminc12.github.io/apis/scholarly-search.html", "name": "Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link API", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://rapidapi.com/IanGregory/api/scholarly-paper-search-api-openalex-doi-citations"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">REST API &middot; JSON &middot; through RapidAPI</p>
+<h1>Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link API</h1>
+<p class="lede">Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper&#x27;s title, DOI, year, venue, type, citation count and open-access link.</p>
+<p>Read from the official source when you call (api.openalex.org); no personal data. <code>GET /v1/scholarly-search</code> answers <code>{"product", "count", "items", "fetched_at"}</code>.</p>
+<p class="mute">Source: OpenAlex, under <a href="https://help.openalex.org/hc/en-us/articles/24396686889751-About-us" rel="nofollow">CC0</a>. Every answer carries this attribution in its <code>sources</code> field.</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi/scholarly-search?from=apis/scholarly-search.html">Get a key on RapidAPI</a> <span class="mute">&nbsp;plans and pricing are on the listing; one key covers every endpoint.</span></p>
+<h2>Parameters</h2><div class="table"><table><tr><th>Parameter</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>query</code></td><td>string</td><td>Keywords to search for in titles, abstracts and full text.</td><td><code>&quot;graph neural networks&quot;</code></td></tr>
+<tr><td><code>year_from</code></td><td>integer</td><td>First publication year to include.</td><td><code>2020</code></td></tr>
+<tr><td><code>year_to</code></td><td>integer</td><td>Last publication year to include.</td><td><code>2026</code></td></tr>
+<tr><td><code>oa_status</code></td><td>string</td><td>Keep only works with this open-access status (empty: all works). One of: , gold, green, hybrid, bronze, diamond, closed.</td><td><code>&quot;green&quot;</code></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>At most this many results (1&ndash;1000, default 100).</td><td><code>20</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>openalex_id</code></td><td>url</td></tr>
+<tr><td><code>title</code></td><td>text</td></tr>
+<tr><td><code>doi</code></td><td>text</td></tr>
+<tr><td><code>year</code></td><td>integer</td></tr>
+<tr><td><code>publication_date</code></td><td>date</td></tr>
+<tr><td><code>venue</code></td><td>text</td></tr>
+<tr><td><code>type</code></td><td>text</td></tr>
+<tr><td><code>cited_by_count</code></td><td>integer</td></tr>
+<tr><td><code>is_open_access</code></td><td>bool</td></tr>
+<tr><td><code>oa_status</code></td><td>text</td></tr>
+<tr><td><code>open_access_url</code></td><td>url</td></tr>
+<tr><td><code>language</code></td><td>text</td></tr>
+</table></div>
+<h2>Call it</h2><p>With curl:</p><pre>curl -G &quot;https://scholarly-paper-search-api-openalex-doi-citations.p.rapidapi.com/v1/scholarly-search&quot; \
+  --data-urlencode &#x27;query=graph neural networks&#x27; \
+  --data-urlencode year_from=2020 \
+  --data-urlencode year_to=2026 \
+  --data-urlencode oa_status=green \
+  --data-urlencode limit=20 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: scholarly-paper-search-api-openalex-doi-citations.p.rapidapi.com&quot;</pre>
+<p>With Python (<code>pip install requests</code>):</p><pre>import os, requests
+
+r = requests.get(
+    &quot;https://scholarly-paper-search-api-openalex-doi-citations.p.rapidapi.com/v1/scholarly-search&quot;,
+    params={&#x27;query&#x27;: &#x27;graph neural networks&#x27;,
+ &#x27;year_from&#x27;: 2020,
+ &#x27;year_to&#x27;: 2026,
+ &#x27;oa_status&#x27;: &#x27;green&#x27;,
+ &#x27;limit&#x27;: 20},
+    headers={&quot;X-RapidAPI-Key&quot;: os.environ[&quot;RAPIDAPI_KEY&quot;], &quot;X-RapidAPI-Host&quot;: &quot;scholarly-paper-search-api-openalex-doi-citations.p.rapidapi.com&quot;},
+    timeout=120,
+)
+for item in r.json()[&quot;items&quot;]:
+    print(item)</pre>
+<p>For code and AI agents that pick tools at run time, <code>GET /v1/products</code> lists every endpoint with its parameters and fields.</p>
+<h2>Questions</h2><p><strong>How fresh is it?</strong> Each call reads the official source then; an identical query within 15 minutes is answered from a cache.</p><p><strong>What if the source is down?</strong> The answer says so: a 502, or <code>"partial": true</code> when only some of its requests failed.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=apis/scholarly-search.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

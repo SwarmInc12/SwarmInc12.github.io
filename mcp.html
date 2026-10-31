@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open data tools for AI agents (MCP) | SwarmInc</title>
+<meta name="description" content="An MCP server with 7 official open-data tools: App Store App Search (iTunes API): prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, Bulk .com domain registration check via RDAP, EU Fuel Price Change Monitor (France, Spain), F. Remote, streamable HTTP; your own RapidAPI key.">
+<link rel="canonical" href="https://swarminc12.github.io/mcp.html">
+<meta property="og:title" content="Open data tools for AI agents (MCP) | SwarmInc">
+<meta property="og:description" content="An MCP server with 7 official open-data tools: App Store App Search (iTunes API): prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, Bulk .com domain registration check via RDAP, EU Fuel Price Change Monitor (France, Spain), F. Remote, streamable HTTP; your own RapidAPI key.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "An MCP server with 7 official open-data tools: App Store App Search (iTunes API): prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, Bulk .com domain registration check via RDAP, EU Fuel Price Change Monitor (France, Spain), F. Remote, streamable HTTP; your own RapidAPI key.", "name": "Open data tools for AI agents (MCP)", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://api.gregswarm.duckdns.org/mcp"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="index.html">SwarmInc</a><a href="index.html#tools">Tools</a><a href="index.html#apis">APIs</a><a href="free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">MCP &middot; remote server &middot; streamable HTTP</p>
+<h1>Open data tools for AI agents (MCP)</h1>
+<p class="lede">An MCP server with 7 official open-data tools: App Store App Search (iTunes API): prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, Bulk .com domain registration check via RDAP, EU Fuel Price Change Monitor (France, Spain), F. Remote, streamable HTTP; your own RapidAPI key.</p>
+<p>Server URL: <code>https://api.gregswarm.duckdns.org/mcp</code><br>Registry name: <code>org.duckdns.gregswarm.api/open-data</code> (the official MCP registry)</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi?from=mcp.html">Get a free RapidAPI key</a> <span class="mute">&nbsp;each tool call goes through RapidAPI with your key, counted on your plan; the free plan has 50 requests a month. Send the key as <code>X-RapidAPI-Key</code>, <code>X-API-Key</code> or <code>Authorization: Bearer</code>. Listing the tools needs no key.</span></p>
+<h2>Add it to your agent</h2>
+<p>Claude Code:</p><pre>claude mcp add --transport http open-data https://api.gregswarm.duckdns.org/mcp \
+  --header &quot;X-RapidAPI-Key: YOUR_RAPIDAPI_KEY&quot;</pre>
+<p>Cursor (.cursor/mcp.json):</p><pre>{
+  &quot;mcpServers&quot;: {
+    &quot;open-data&quot;: {
+      &quot;url&quot;: &quot;https://api.gregswarm.duckdns.org/mcp&quot;,
+      &quot;headers&quot;: {
+        &quot;X-RapidAPI-Key&quot;: &quot;YOUR_RAPIDAPI_KEY&quot;
+      }
+    }
+  }
+}</pre>
+<p>VS Code (.vscode/mcp.json):</p><pre>{
+  &quot;servers&quot;: {
+    &quot;open-data&quot;: {
+      &quot;type&quot;: &quot;http&quot;,
+      &quot;url&quot;: &quot;https://api.gregswarm.duckdns.org/mcp&quot;,
+      &quot;headers&quot;: {
+        &quot;X-RapidAPI-Key&quot;: &quot;YOUR_RAPIDAPI_KEY&quot;
+      }
+    }
+  }
+}</pre>
+<h2>Tools</h2><div class="table"><table><tr><th>Tool</th><th>What it returns</th></tr>
+<tr><td><a href="apis/app-store-search.html"><code>app-store-search</code></a></td><td>Search Apple&#x27;s App Store by keyword in any storefront country and get each app&#x27;s developer, price, rating, version, release date, genre, size, minimum OS and store URL.</td></tr>
+<tr><td><a href="apis/clinical-trials-monitor.html"><code>clinical-trials-monitor</code></a></td><td>Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.</td></tr>
+<tr><td><a href="apis/domain-availability.html"><code>domain-availability</code></a></td><td>Check a list of .com domains in bulk and get the registrar, creation and expiry dates, status codes and nameservers straight from the Verisign registry&#x27;s public RDAP service.</td></tr>
+<tr><td><a href="apis/eu-fuel-monitor.html"><code>eu-fuel-monitor</code></a></td><td>Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.</td></tr>
+<tr><td><a href="apis/fr-company-search.html"><code>fr-company-search</code></a></td><td>Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.</td></tr>
+<tr><td><a href="apis/scholarly-search.html"><code>scholarly-search</code></a></td><td>Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper&#x27;s title, DOI, year, venue, type, citation count and open-access link.</td></tr>
+<tr><td><a href="apis/ted-tender-monitor.html"><code>ted-tender-monitor</code></a></td><td>New public procurement notices from the EU&#x27;s official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.</td></tr>
+</table></div><p>Every tool is read-only, reads the official source when called, and declares its input and output schemas. Results come back as JSON (<code>structuredContent</code>) with the same fields as the REST API.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=mcp.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

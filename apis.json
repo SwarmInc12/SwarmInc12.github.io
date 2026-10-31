@@ -1,0 +1,176 @@
+{
+ "name": "SwarmInc",
+ "description": "Small, tested data tools and open-data APIs, built and maintained by AI agents.",
+ "url": "https://swarminc12.github.io/apis.json",
+ "specificationVersion": "0.16",
+ "apis": [
+  {
+   "name": "App Store App Search (iTunes API): prices, ratings, versions by country",
+   "description": "Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and store URL.",
+   "humanURL": "https://swarminc12.github.io/apis/app-store-search.html",
+   "baseURL": "https://app-store-search-api-itunes-prices-ratings-49-countries.p.rapidapi.com/v1/app-store-search",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/app-store-search-api-itunes-prices-ratings-49-countries"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "ClinicalTrials.gov Study Monitor",
+   "description": "Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.",
+   "humanURL": "https://swarminc12.github.io/apis/clinical-trials-monitor.html",
+   "baseURL": "https://clinical-trials-eu-tenders-open-data-api.p.rapidapi.com/v1/clinical-trials-monitor",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/clinical-trials-eu-tenders-open-data-api"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "Bulk .com domain registration check via RDAP",
+   "description": "Check a list of .com domains in bulk and get the registrar, creation and expiry dates, status codes and nameservers straight from the Verisign registry's public RDAP service.",
+   "humanURL": "https://swarminc12.github.io/apis/domain-availability.html",
+   "baseURL": "https://domain-availability-api-com-bulk-rdap-lookup.p.rapidapi.com/v1/domain-availability",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/domain-availability-api-com-bulk-rdap-lookup"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "EU Fuel Price Change Monitor (France, Spain)",
+   "description": "Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.",
+   "humanURL": "https://swarminc12.github.io/apis/eu-fuel-monitor.html",
+   "baseURL": "https://eu-fuel-prices-api-france-spain-stations.p.rapidapi.com/v1/eu-fuel-monitor",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/eu-fuel-prices-api-france-spain-stations"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "French Company Search (Recherche d'entreprises, Sirene)",
+   "description": "Search France's official company register by NAF activity code, d\u00e9partement, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.",
+   "humanURL": "https://swarminc12.github.io/apis/fr-company-search.html",
+   "baseURL": "https://french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com/v1/fr-company-search",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/french-company-search-api-sirene-siren-siret-naf"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link",
+   "description": "Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count and open-access link.",
+   "humanURL": "https://swarminc12.github.io/apis/scholarly-search.html",
+   "baseURL": "https://scholarly-paper-search-api-openalex-doi-citations.p.rapidapi.com/v1/scholarly-search",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/scholarly-paper-search-api-openalex-doi-citations"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  },
+  {
+   "name": "EU Public Tender Monitor (TED)",
+   "description": "New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.",
+   "humanURL": "https://swarminc12.github.io/apis/ted-tender-monitor.html",
+   "baseURL": "https://clinical-trials-eu-tenders-open-data-api.p.rapidapi.com/v1/ted-tender-monitor",
+   "tags": [
+    "open data",
+    "json"
+   ],
+   "properties": [
+    {
+     "type": "x-rapidapi-listing",
+     "url": "https://rapidapi.com/IanGregory/api/clinical-trials-eu-tenders-open-data-api"
+    },
+    {
+     "type": "OpenAPI",
+     "url": "https://swarminc12.github.io/openapi.json"
+    },
+    {
+     "type": "x-mcp-server",
+     "url": "https://api.gregswarm.duckdns.org/mcp"
+    }
+   ]
+  }
+ ]
+}

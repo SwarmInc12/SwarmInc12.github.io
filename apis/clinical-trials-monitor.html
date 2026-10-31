@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClinicalTrials.gov Study Monitor API | SwarmInc</title>
+<meta name="description" content="Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.">
+<link rel="canonical" href="https://swarminc12.github.io/apis/clinical-trials-monitor.html">
+<meta property="og:title" content="ClinicalTrials.gov Study Monitor API | SwarmInc">
+<meta property="og:description" content="Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.", "documentation": "https://swarminc12.github.io/apis/clinical-trials-monitor.html", "name": "ClinicalTrials.gov Study Monitor API", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://rapidapi.com/IanGregory/api/clinical-trials-eu-tenders-open-data-api"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">REST API &middot; JSON &middot; through RapidAPI</p>
+<h1>ClinicalTrials.gov Study Monitor API</h1>
+<p class="lede">Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.</p>
+<p>Read from the official source when you call (clinicaltrials.gov); no personal data. <code>GET /v1/clinical-trials-monitor</code> answers <code>{"product", "count", "items", "fetched_at"}</code>.</p>
+<p class="mute">Source: ClinicalTrials.gov (U.S. National Library of Medicine), under <a href="https://classic.clinicaltrials.gov/ct2/about-site/terms-conditions" rel="nofollow">NLM&#x27;s terms and conditions</a>. Every answer carries this attribution in its <code>sources</code> field.</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi?from=apis/clinical-trials-monitor.html">Get a key on RapidAPI</a> <span class="mute">&nbsp;plans and pricing are on the listing; one key covers every endpoint.</span></p>
+<h2>Parameters</h2><div class="table"><table><tr><th>Parameter</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>condition</code></td><td>string</td><td>Disease or condition to follow (for example breast cancer, type 2 diabetes, Alzheimer).</td><td><code>&quot;breast cancer&quot;</code></td></tr>
+<tr><td><code>phase</code></td><td>string</td><td>Study phase to follow. One of: EARLY_PHASE1, PHASE1, PHASE2, PHASE3, PHASE4.</td><td><code>&quot;PHASE2&quot;</code></td></tr>
+<tr><td><code>status</code></td><td>string</td><td>Recruitment status to follow. One of: RECRUITING, NOT_YET_RECRUITING, ACTIVE_NOT_RECRUITING, ENROLLING_BY_INVITATION, COMPLETED, TERMINATED, WITHDRAWN, SUSPENDED.</td><td><code>&quot;RECRUITING&quot;</code></td></tr>
+<tr><td><code>updated_since</code></td><td>string</td><td>Only studies whose record was last updated on or after this date (YYYY-MM-DD).</td><td><code>&quot;2025-01-01&quot;</code></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>At most this many results (1&ndash;1000, default 100).</td><td><code>20</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>nct_id</code></td><td>id</td></tr>
+<tr><td><code>title</code></td><td>text</td></tr>
+<tr><td><code>sponsor</code></td><td>text</td></tr>
+<tr><td><code>phase</code></td><td>list</td></tr>
+<tr><td><code>status</code></td><td>text</td></tr>
+<tr><td><code>enrollment</code></td><td>integer</td></tr>
+<tr><td><code>start_date</code></td><td>date</td></tr>
+<tr><td><code>completion_date</code></td><td>date</td></tr>
+<tr><td><code>last_update_date</code></td><td>date</td></tr>
+<tr><td><code>conditions</code></td><td>list</td></tr>
+<tr><td><code>lead_intervention</code></td><td>text</td></tr>
+<tr><td><code>first_country</code></td><td>text</td></tr>
+</table></div>
+<h2>Sample results</h2><p class="mute">The first 3 results of the same source's latest test run (long values shortened).</p>
+<pre>[
+  {
+    &quot;completion_date&quot;: &quot;2028-12-30&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Breast Cancer Recurrent\&quot;]&quot;,
+    &quot;enrollment&quot;: 80,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-10-30&quot;,
+    &quot;lead_intervention&quot;: &quot;Functional Precision Oncology&quot;,
+    &quot;nct_id&quot;: &quot;NCT05464082&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;University of Utah&quot;,
+    &quot;start_date&quot;: &quot;2023-01-06&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;Functional Precision Oncology to Predict, Prevent, and Treat Early Metastatic Recurrence of TNBC&quot;
+  },
+  {
+    &quot;completion_date&quot;: &quot;2030-07-01&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Advanced Malignant Solid Neoplasm\&quot;, \&quot;Anatomic Stage III Breast Cancer AJCC v8\&quot;, \&quot;Anatomic Stage IV Breast Cancer AJCC v8\&quot;, \&quot;Locally Advanced Malignant Solid …&quot;,
+    &quot;enrollment&quot;: 2900,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-10-30&quot;,
+    &quot;lead_intervention&quot;: &quot;Alpelisib&quot;,
+    &quot;nct_id&quot;: &quot;NCT05564377&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;National Cancer Institute (NCI)&quot;,
+    &quot;start_date&quot;: &quot;2023-04-07&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;Targeted Therapy Directed by Genetic Testing in Treating Patients With Locally Advanced or Advanced Solid Tumors, The ComboMATCH Screening Trial&quot;
+  },
+  {
+    &quot;completion_date&quot;: &quot;2029-03-23&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Endocrine Tumors\&quot;, \&quot;Non-Small Cell Lung Cancer\&quot;, \&quot;Ovarian Cancer\&quot;, \&quot;Breast Cancer\&quot;, \&quot;Gastrointestinal/Genitourinary Cancers\&quot;, \&quot;Neuroendocrine Tumors\&quot;, \&quot;Multi…&quot;,
+    &quot;enrollment&quot;: 285,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-10-30&quot;,
+    &quot;lead_intervention&quot;: &quot;Cyclophosphamide&quot;,
+    &quot;nct_id&quot;: &quot;NCT03412877&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;National Cancer Institute (NCI)&quot;,
+    &quot;start_date&quot;: &quot;2018-09-06&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;Administration of Autologous T-Cells Genetically Engineered to Express T-Cell Receptors Reactive Against Neoantigens in People With Metastatic Cancer&quot;
+  }
+]</pre>
+<h2>Call it</h2><p>With curl:</p><pre>curl -G &quot;https://clinical-trials-eu-tenders-open-data-api.p.rapidapi.com/v1/clinical-trials-monitor&quot; \
+  --data-urlencode &#x27;condition=breast cancer&#x27; \
+  --data-urlencode phase=PHASE2 \
+  --data-urlencode status=RECRUITING \
+  --data-urlencode updated_since=2025-01-01 \
+  --data-urlencode limit=20 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: clinical-trials-eu-tenders-open-data-api.p.rapidapi.com&quot;</pre>
+<p>With Python (<code>pip install requests</code>):</p><pre>import os, requests
+
+r = requests.get(
+    &quot;https://clinical-trials-eu-tenders-open-data-api.p.rapidapi.com/v1/clinical-trials-monitor&quot;,
+    params={&#x27;condition&#x27;: &#x27;breast cancer&#x27;,
+ &#x27;phase&#x27;: &#x27;PHASE2&#x27;,
+ &#x27;status&#x27;: &#x27;RECRUITING&#x27;,
+ &#x27;updated_since&#x27;: &#x27;2025-01-01&#x27;,
+ &#x27;limit&#x27;: 20},
+    headers={&quot;X-RapidAPI-Key&quot;: os.environ[&quot;RAPIDAPI_KEY&quot;], &quot;X-RapidAPI-Host&quot;: &quot;clinical-trials-eu-tenders-open-data-api.p.rapidapi.com&quot;},
+    timeout=120,
+)
+for item in r.json()[&quot;items&quot;]:
+    print(item)</pre>
+<p>For code and AI agents that pick tools at run time, <code>GET /v1/products</code> lists every endpoint with its parameters and fields.</p>
+<h2>Questions</h2><p><strong>How fresh is it?</strong> Each call reads the official source then; an identical query within 15 minutes is answered from a cache.</p><p><strong>What if the source is down?</strong> The answer says so: a 502, or <code>"partial": true</code> when only some of its requests failed.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=apis/clinical-trials-monitor.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

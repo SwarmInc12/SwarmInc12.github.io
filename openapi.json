@@ -1,0 +1,1110 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "Open Data APIs",
+  "version": "1.0",
+  "x-category": "Data",
+  "description": "Official open data behind one key: App Store App Search (iTunes API): prices, ratings, versions by country; ClinicalTrials.gov Study Monitor; Bulk .com domain registration check via RDAP; EU Fuel Price Change Monitor (France, Spain); French Company Search (Recherche d'entreprises, Sirene); Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link; EU Public Tender Monitor (TED). Data from the official public sources (api.openalex.org, api.ted.europa.eu, clinicaltrials.gov, donnees.roulez-eco.fr, itunes.apple.com, rdap.verisign.com, recherche-entreprises.api.gouv.fr, sedeaplicaciones.minetur.gob.es), read when you call; no personal data. Made by SwarmInc, an automated company."
+ },
+ "servers": [
+  {
+   "url": "https://clinical-trials-eu-tenders-open-data-api.p.rapidapi.com"
+  }
+ ],
+ "paths": {
+  "/v1/products": {
+   "get": {
+    "summary": "Every product: its parameters and fields",
+    "operationId": "products",
+    "parameters": [],
+    "description": "The list of products this API serves, each with its path, parameters (name, type, allowed values) and the fields of its results. New products appear here as they are verified.",
+    "responses": {
+     "200": {
+      "description": "The products",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "count": {
+           "type": "integer"
+          },
+          "products": {
+           "type": "array",
+           "items": {
+            "type": "object"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/v1/app-store-search": {
+   "get": {
+    "summary": "App Store App Search (iTunes API): prices, ratings, versions by country",
+    "description": "Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and store URL.",
+    "operationId": "app_store_search",
+    "parameters": [
+     {
+      "name": "term",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "budget"
+      },
+      "description": "Keyword to search for in the App Store (for example budget, photo editor, meditation).",
+      "example": "budget"
+     },
+     {
+      "name": "country",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "us",
+        "gb",
+        "ca",
+        "au",
+        "nz",
+        "ie",
+        "fr",
+        "de",
+        "es",
+        "it",
+        "pt",
+        "nl",
+        "be",
+        "at",
+        "ch",
+        "se",
+        "no",
+        "dk",
+        "fi",
+        "pl",
+        "cz",
+        "tr",
+        "gr",
+        "jp",
+        "kr",
+        "cn",
+        "hk",
+        "tw",
+        "sg",
+        "in",
+        "id",
+        "th",
+        "vn",
+        "ph",
+        "my",
+        "br",
+        "mx",
+        "ar",
+        "cl",
+        "co",
+        "za",
+        "ae",
+        "sa",
+        "il",
+        "eg",
+        "ng",
+        "ua",
+        "ro",
+        "hu"
+       ],
+       "default": "us"
+      },
+      "description": "Two-letter App Store country code, which sets the prices, currency and ratings returned.",
+      "example": "us"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 50
+      },
+      "description": "How many apps to return (Apple allows up to 200 per search).",
+      "example": 50
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "app_id": {
+              "type": "string"
+             },
+             "name": {
+              "type": "string"
+             },
+             "developer": {
+              "type": "string"
+             },
+             "developer_id": {
+              "type": "string"
+             },
+             "bundle_id": {
+              "type": "string"
+             },
+             "price": {
+              "type": "number"
+             },
+             "formatted_price": {
+              "type": "string"
+             },
+             "currency": {
+              "type": "string"
+             },
+             "average_rating": {
+              "type": "number"
+             },
+             "rating_count": {
+              "type": "integer"
+             },
+             "average_rating_current_version": {
+              "type": "number"
+             },
+             "rating_count_current_version": {
+              "type": "integer"
+             },
+             "version": {
+              "type": "string"
+             },
+             "version_release_date": {
+              "type": "string"
+             },
+             "release_date": {
+              "type": "string"
+             },
+             "primary_genre": {
+              "type": "string"
+             },
+             "size_bytes": {
+              "type": "integer"
+             },
+             "minimum_os": {
+              "type": "string"
+             },
+             "content_rating": {
+              "type": "string"
+             },
+             "seller_name": {
+              "type": "string"
+             },
+             "store_url": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/clinical-trials-monitor": {
+   "get": {
+    "summary": "ClinicalTrials.gov Study Monitor",
+    "description": "Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.",
+    "operationId": "clinical_trials_monitor",
+    "parameters": [
+     {
+      "name": "condition",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "breast cancer"
+      },
+      "description": "Disease or condition to follow (for example breast cancer, type 2 diabetes, Alzheimer).",
+      "example": "breast cancer"
+     },
+     {
+      "name": "phase",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "EARLY_PHASE1",
+        "PHASE1",
+        "PHASE2",
+        "PHASE3",
+        "PHASE4"
+       ],
+       "default": "PHASE2"
+      },
+      "description": "Study phase to follow.",
+      "example": "PHASE2"
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "RECRUITING",
+        "NOT_YET_RECRUITING",
+        "ACTIVE_NOT_RECRUITING",
+        "ENROLLING_BY_INVITATION",
+        "COMPLETED",
+        "TERMINATED",
+        "WITHDRAWN",
+        "SUSPENDED"
+       ],
+       "default": "RECRUITING"
+      },
+      "description": "Recruitment status to follow.",
+      "example": "RECRUITING"
+     },
+     {
+      "name": "updated_since",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "2025-01-01"
+      },
+      "description": "Only studies whose record was last updated on or after this date (YYYY-MM-DD).",
+      "example": "2025-01-01"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "nct_id": {
+              "type": "string"
+             },
+             "title": {
+              "type": "string"
+             },
+             "sponsor": {
+              "type": "string"
+             },
+             "phase": {
+              "type": "array",
+              "items": {}
+             },
+             "status": {
+              "type": "string"
+             },
+             "enrollment": {
+              "type": "integer"
+             },
+             "start_date": {
+              "type": "string"
+             },
+             "completion_date": {
+              "type": "string"
+             },
+             "last_update_date": {
+              "type": "string"
+             },
+             "conditions": {
+              "type": "array",
+              "items": {}
+             },
+             "lead_intervention": {
+              "type": "string"
+             },
+             "first_country": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/domain-availability": {
+   "get": {
+    "summary": "Bulk .com domain registration check via RDAP",
+    "description": "Check a list of .com domains in bulk and get the registrar, creation and expiry dates, status codes and nameservers straight from the Verisign registry's public RDAP service.",
+    "operationId": "domain_availability",
+    "parameters": [
+     {
+      "name": "domains",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "description": "Registered .com domain names to look up, e.g. [\"example.com\", \"google.com\"]. A name the registry does not know (available) returns a 404 and no row.",
+      "example": [
+       "example.com",
+       "google.com",
+       "apify.com"
+      ]
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "domain": {
+              "type": "string"
+             },
+             "registered": {
+              "type": "string"
+             },
+             "registrar_id": {
+              "type": "string"
+             },
+             "registrar_name": {
+              "type": "string"
+             },
+             "created_at": {
+              "type": "string"
+             },
+             "expires_at": {
+              "type": "string"
+             },
+             "status": {
+              "type": "array",
+              "items": {}
+             },
+             "nameserver_1": {
+              "type": "string"
+             },
+             "nameserver_2": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/eu-fuel-monitor": {
+   "get": {
+    "summary": "EU Fuel Price Change Monitor (France, Spain)",
+    "description": "Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.",
+    "operationId": "eu_fuel_monitor",
+    "parameters": [
+     {
+      "name": "country",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "enum": [
+         "FR",
+         "ES"
+        ]
+       }
+      },
+      "description": "Which national feeds to read (empty: all).",
+      "example": [
+       "FR",
+       "ES"
+      ]
+     },
+     {
+      "name": "postcode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "28"
+      },
+      "description": "Keep stations whose postcode starts with this (28 is Madrid in Spain, Eure-et-Loir in France; 75 Paris; empty keeps all).",
+      "example": "28"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "country": {
+              "type": "string"
+             },
+             "station_id": {
+              "type": "string"
+             },
+             "postcode": {
+              "type": "string"
+             },
+             "address": {
+              "type": "string"
+             },
+             "city": {
+              "type": "string"
+             },
+             "lat": {
+              "type": "string"
+             },
+             "lon": {
+              "type": "string"
+             },
+             "diesel_eur_l": {
+              "type": "number"
+             },
+             "sp95_e5_eur_l": {
+              "type": "number"
+             },
+             "e10_eur_l": {
+              "type": "number"
+             },
+             "sp98_eur_l": {
+              "type": "number"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/fr-company-search": {
+   "get": {
+    "summary": "French Company Search (Recherche d'entreprises, Sirene)",
+    "description": "Search France's official company register by NAF activity code, d\u00e9partement, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.",
+    "operationId": "fr_company_search",
+    "parameters": [
+     {
+      "name": "activite_principale",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "62.01Z"
+      },
+      "description": "Main activity code (NAF rev. 2) of the company, e.g. 62.01Z (computer programming), 56.10A (restaurants), 47.11D (supermarkets).",
+      "example": "62.01Z"
+     },
+     {
+      "name": "departement",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "D\u00e9partement code of the head office, e.g. 75 Paris, 69 Rh\u00f4ne, 2A Corse-du-Sud. Leave empty for all of France.",
+      "example": "75"
+     },
+     {
+      "name": "tranche_effectif_salarie",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "INSEE headcount band: 00 (0), 01 (1-2), 02 (3-5), 03 (6-9), 11 (10-19), 12 (20-49), 21 (50-99), 22 (100-199), 31 (200-249), 32 (250-499), 41 (500-999), 42 (1000-1999), 51 (2000-4999), 52 (5000-9999), 53 (10000+). Leave empty for any.",
+      "example": "11"
+     },
+     {
+      "name": "etat_administratif",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "A",
+        "C"
+       ],
+       "default": "A"
+      },
+      "description": "A = active companies, C = ceased companies.",
+      "example": "A"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "siren": {
+              "type": "string"
+             },
+             "siret_head_office": {
+              "type": "string"
+             },
+             "name": {
+              "type": "string"
+             },
+             "legal_name": {
+              "type": "string"
+             },
+             "naf_code": {
+              "type": "string"
+             },
+             "legal_form_code": {
+              "type": "string"
+             },
+             "address": {
+              "type": "string"
+             },
+             "postcode": {
+              "type": "string"
+             },
+             "city": {
+              "type": "string"
+             },
+             "departement": {
+              "type": "string"
+             },
+             "lat": {
+              "type": "string"
+             },
+             "lon": {
+              "type": "string"
+             },
+             "creation_date": {
+              "type": "string"
+             },
+             "headcount_band": {
+              "type": "string"
+             },
+             "company_category": {
+              "type": "string"
+             },
+             "establishments_total": {
+              "type": "integer"
+             },
+             "establishments_open": {
+              "type": "integer"
+             },
+             "status": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/scholarly-search": {
+   "get": {
+    "summary": "Scholarly Paper Search (OpenAlex): DOI, year, venue, citations, open-access link",
+    "description": "Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count and open-access link.",
+    "operationId": "scholarly_search",
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "graph neural networks"
+      },
+      "description": "Keywords to search for in titles, abstracts and full text.",
+      "example": "graph neural networks"
+     },
+     {
+      "name": "year_from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 2020
+      },
+      "description": "First publication year to include.",
+      "example": 2020
+     },
+     {
+      "name": "year_to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 2026
+      },
+      "description": "Last publication year to include.",
+      "example": 2026
+     },
+     {
+      "name": "oa_status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "",
+        "gold",
+        "green",
+        "hybrid",
+        "bronze",
+        "diamond",
+        "closed"
+       ]
+      },
+      "description": "Keep only works with this open-access status (empty: all works).",
+      "example": "green"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "openalex_id": {
+              "type": "string"
+             },
+             "title": {
+              "type": "string"
+             },
+             "doi": {
+              "type": "string"
+             },
+             "year": {
+              "type": "integer"
+             },
+             "publication_date": {
+              "type": "string"
+             },
+             "venue": {
+              "type": "string"
+             },
+             "type": {
+              "type": "string"
+             },
+             "cited_by_count": {
+              "type": "integer"
+             },
+             "is_open_access": {
+              "type": "string"
+             },
+             "oa_status": {
+              "type": "string"
+             },
+             "open_access_url": {
+              "type": "string"
+             },
+             "language": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  },
+  "/v1/ted-tender-monitor": {
+   "get": {
+    "summary": "EU Public Tender Monitor (TED)",
+    "description": "New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.",
+    "operationId": "ted_tender_monitor",
+    "parameters": [
+     {
+      "name": "cpv_prefix",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "72"
+      },
+      "description": "Start of the CPV code to follow (for example 72 for IT services, 45 for construction, 33 for medical equipment).",
+      "example": "72"
+     },
+     {
+      "name": "country",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [
+        "AUT",
+        "BEL",
+        "BGR",
+        "HRV",
+        "CYP",
+        "CZE",
+        "DNK",
+        "EST",
+        "FIN",
+        "FRA",
+        "DEU",
+        "GRC",
+        "HUN",
+        "IRL",
+        "ITA",
+        "LVA",
+        "LTU",
+        "LUX",
+        "MLT",
+        "NLD",
+        "POL",
+        "PRT",
+        "ROU",
+        "SVK",
+        "SVN",
+        "ESP",
+        "SWE",
+        "NOR",
+        "ISL"
+       ],
+       "default": "FRA"
+      },
+      "description": "Country of the buying organisation, as a three-letter ISO code.",
+      "example": "FRA"
+     },
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Optional word that the notice title must contain. Leave empty to keep all notices.",
+      "example": "services"
+     },
+     {
+      "name": "published_since",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "20250101"
+      },
+      "description": "Only notices published on or after this date, written YYYYMMDD.",
+      "example": "20250101"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 1000,
+       "default": 100
+      },
+      "description": "At most this many results (1-1000)."
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "The results",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "product": {
+           "type": "string"
+          },
+          "count": {
+           "type": "integer"
+          },
+          "items": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "notice_id": {
+              "type": "string"
+             },
+             "publication_date": {
+              "type": "string"
+             },
+             "buyer": {
+              "type": "string"
+             },
+             "country_code": {
+              "type": "string"
+             },
+             "title": {
+              "type": "string"
+             },
+             "cpv_codes": {
+              "type": "array",
+              "items": {}
+             },
+             "procedure": {
+              "type": "string"
+             },
+             "deadline": {
+              "type": "string"
+             },
+             "estimated_value": {
+              "type": "number"
+             },
+             "currency": {
+              "type": "string"
+             },
+             "url": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "A parameter the product doesn't take, or a value of the wrong type"
+     },
+     "429": {
+      "description": "Too many requests"
+     },
+     "502": {
+      "description": "The source didn't answer"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "securitySchemes": {
+   "RapidAPIKey": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "X-RapidAPI-Key"
+   }
+  }
+ },
+ "security": [
+  {
+   "RapidAPIKey": []
+  }
+ ],
+ "externalDocs": {
+  "url": "https://rapidapi.com/IanGregory/api/clinical-trials-eu-tenders-open-data-api",
+  "description": "Plans and keys on RapidAPI"
+ }
+}

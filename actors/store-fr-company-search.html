@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>French Company Search by NAF, Area and Size | SwarmInc</title>
+<meta name="description" content="Search France&#x27;s official company register (Sirene) by NAF code, département, headcount band and status. Typed SIREN, SIRET, address and size records.">
+<link rel="canonical" href="https://swarminc12.github.io/actors/store-fr-company-search.html">
+<meta property="og:title" content="French Company Search by NAF, Area and Size | SwarmInc">
+<meta property="og:description" content="Search France&#x27;s official company register (Sirene) by NAF code, département, headcount band and status. Typed SIREN, SIRET, address and size records.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "DeveloperApplication", "description": "Search France's official company register (Sirene) by NAF code, département, headcount band and status. Typed SIREN, SIRET, address and size records.", "name": "French Company Search (Recherche d'entreprises, Sirene)", "offers": {"@type": "Offer", "description": "$0.80 per 1,000 results", "price": "0.00080", "priceCurrency": "USD"}, "operatingSystem": "Web (Apify platform)", "publisher": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://apify.com/nonstop_poacher/store-fr-company-search"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">Apify Actor &middot; BUSINESS, LEAD_GENERATION</p>
+<h1>French Company Search (Recherche d&#x27;entreprises, Sirene)</h1>
+<p class="lede">Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office add…</p>
+<p>This Actor searches France&#x27;s official company register through the State&#x27;s free Recherche d&#x27;entreprises API (INSEE Sirene data, credited to recherche-entrepris…</p>
+<p><a class="btn" href="https://apify.com/nonstop_poacher/store-fr-company-search">Run it on the Apify Store</a> <span class="mute">&nbsp;$0.80 per 1,000 results, billed by Apify; Apify's free plan includes monthly credit.</span></p>
+<h2>Inputs</h2><div class="table"><table><tr><th>Field</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>activite_principale</code></td><td>string</td><td>NAF activity code: Main activity code (NAF rev. 2) of the company, e.g. 62.01Z (computer programming), 56.10A (restaurants), 47.11D (supermarkets).</td><td><code>&quot;62.01Z&quot;</code></td></tr>
+<tr><td><code>departement</code></td><td>string</td><td>Département: Département code of the head office, e.g. 75 Paris, 69 Rhône, 2A Corse-du-Sud. Leave empty for all of France.</td><td><code>&quot;75&quot;</code></td></tr>
+<tr><td><code>tranche_effectif_salarie</code></td><td>string</td><td>Headcount band code: INSEE headcount band: 00 (0), 01 (1-2), 02 (3-5), 03 (6-9), 11 (10-19), 12 (20-49), 21 (50-99), 22 (100-199), 31 (200-249), 32 (250-499), 41 (500-999), 42 (100…</td><td><code>&quot;11&quot;</code></td></tr>
+<tr><td><code>etat_administratif</code></td><td>string</td><td>Status: A = active companies, C = ceased companies.</td><td><code>&quot;A&quot;</code></td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>Max results: Stop after this many results (keeps a run&#x27;s cost predictable).</td><td><code>5000</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>siren</code> <span class="mute">(always set)</span></td><td>id</td></tr>
+<tr><td><code>siret_head_office</code></td><td>id</td></tr>
+<tr><td><code>name</code> <span class="mute">(always set)</span></td><td>text</td></tr>
+<tr><td><code>legal_name</code></td><td>text</td></tr>
+<tr><td><code>naf_code</code></td><td>id</td></tr>
+<tr><td><code>legal_form_code</code></td><td>id</td></tr>
+<tr><td><code>address</code></td><td>text</td></tr>
+<tr><td><code>postcode</code></td><td>id</td></tr>
+<tr><td><code>city</code></td><td>text</td></tr>
+<tr><td><code>departement</code></td><td>id</td></tr>
+<tr><td><code>lat</code></td><td>lat</td></tr>
+<tr><td><code>lon</code></td><td>lon</td></tr>
+<tr><td><code>creation_date</code></td><td>date</td></tr>
+<tr><td><code>headcount_band</code></td><td>id</td></tr>
+<tr><td><code>company_category</code></td><td>text</td></tr>
+<tr><td><code>establishments_total</code></td><td>integer</td></tr>
+<tr><td><code>establishments_open</code></td><td>integer</td></tr>
+<tr><td><code>status</code></td><td>id</td></tr>
+</table></div>
+<h2>Sample output</h2><p class="mute">The first 3 results of its latest test run on the platform (long values shortened).</p>
+<pre>[
+  {
+    &quot;address&quot;: &quot;8 BOULEVARD DE STRASBOURG 75010 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;2019-03-15&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.8701296506237,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;SNAPDESK&quot;,
+    &quot;lon&quot;: 2.35494374973319,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;SNAPDESK (SNAPDESK)&quot;,
+    &quot;postcode&quot;: &quot;75010&quot;,
+    &quot;siren&quot;: &quot;849239587&quot;,
+    &quot;siret_head_office&quot;: &quot;84923958700199&quot;
+  },
+  {
+    &quot;address&quot;: &quot;10 RUE MERCOEUR 75011 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;1992-11-09&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.857274574,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;DEVELOP ETUDE FORMAT INTEGR INFORMATIQUE&quot;,
+    &quot;lon&quot;: 2.383990212,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;DEVELOP ETUDE FORMAT INTEGR INFORMATIQUE&quot;,
+    &quot;postcode&quot;: &quot;75011&quot;,
+    &quot;siren&quot;: &quot;389230509&quot;,
+    &quot;siret_head_office&quot;: &quot;38923050900058&quot;
+  },
+  {
+    &quot;address&quot;: &quot;TOUR MONTPARNASSE 33 AVENUE DU MAINE 75015 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;2020-07-07&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.842280902,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;C-DIGITAL LABS&quot;,
+    &quot;lon&quot;: 2.3212363835,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;C-DIGITAL LABS&quot;,
+    &quot;postcode&quot;: &quot;75015&quot;,
+    &quot;siren&quot;: &quot;885126144&quot;,
+    &quot;siret_head_office&quot;: &quot;88512614400017&quot;
+  }
+]</pre>
+<h2>Call it from code</h2><p>With the Apify API (one request; the response is the results):</p>
+<pre>curl -X POST &quot;https://api.apify.com/v2/acts/nonstop_poacher~store-fr-company-search/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{&quot;activite_principale&quot;: &quot;62.01Z&quot;, &quot;departement&quot;: &quot;75&quot;, &quot;etat_administratif&quot;: &quot;A&quot;, &quot;maxItems&quot;: 5000, &quot;tranche_effectif_salarie&quot;: &quot;11&quot;}&#x27;</pre>
+<p>With the Python client (<code>pip install apify-client</code>):</p>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;nonstop_poacher/store-fr-company-search&quot;).call(run_input={&#x27;activite_principale&#x27;: &#x27;62.01Z&#x27;,
+ &#x27;departement&#x27;: &#x27;75&#x27;,
+ &#x27;etat_administratif&#x27;: &#x27;A&#x27;,
+ &#x27;maxItems&#x27;: 5000,
+ &#x27;tranche_effectif_salarie&#x27;: &#x27;11&#x27;})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</pre>
+<p>From an AI agent: connect <a href="https://mcp.apify.com">Apify's MCP server</a> and add the Actor <code>nonstop_poacher/store-fr-company-search</code>.</p>
+<h2>Questions</h2>
+<p><strong>What does it cost?</strong> $0.80 per 1,000 results, charged per result through your Apify account. You pay only for results it returns.</p>
+<p><strong>Something wrong?</strong> Open an issue on the Issues tab of its Store page.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=actors/store-fr-company-search.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

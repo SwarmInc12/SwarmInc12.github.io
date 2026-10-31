@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Sheets Import: Public Sheet to Dataset | SwarmInc</title>
+<meta name="description" content="Import every row of a public Google Sheet into an Apify dataset by link. No OAuth, no login; private or missing tabs are skipped with a warning.">
+<link rel="canonical" href="https://swarminc12.github.io/actors/apify-google-sheets-alt.html">
+<meta property="og:title" content="Google Sheets Import: Public Sheet to Dataset | SwarmInc">
+<meta property="og:description" content="Import every row of a public Google Sheet into an Apify dataset by link. No OAuth, no login; private or missing tabs are skipped with a warning.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "applicationCategory": "DeveloperApplication", "description": "Import every row of a public Google Sheet into an Apify dataset by link. No OAuth, no login; private or missing tabs are skipped with a warning.", "name": "Google Sheets Import: Public Sheet to Dataset", "offers": {"@type": "Offer", "description": "$0.80 per 1,000 results", "price": "0.00080", "priceCurrency": "USD"}, "operatingSystem": "Web (Apify platform)", "publisher": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://apify.com/nonstop_poacher/apify-google-sheets-alt"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">Apify Actor &middot; DEVELOPER_TOOLS, AUTOMATION</p>
+<h1>Google Sheets Import: Public Sheet to Dataset</h1>
+<p class="lede">Imports every row of a public Google Sheet into a dataset (url, sheetTitle, rowIndex, data with one key per column header), with no OAuth; private tabs are ski…</p>
+<p>This Actor imports public Google Sheets into an Apify dataset. It reads each sheet through its CSV export link, with no Google OAuth, and turns every row into …</p>
+<p><a class="btn" href="https://apify.com/nonstop_poacher/apify-google-sheets-alt">Run it on the Apify Store</a> <span class="mute">&nbsp;$0.80 per 1,000 results, billed by Apify; Apify's free plan includes monthly credit.</span></p>
+<h2>Inputs</h2><div class="table"><table><tr><th>Field</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>startUrls</code> <span class="mute">(required)</span></td><td>array</td><td>Start URLs: Public Google Sheets links (share link, /export?format=csv or published-to-web). A sheet that is not shared publicly is skipped with a warning.</td><td><code>&quot;[{\&quot;url\&quot;: \&quot;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0\&quot;}]&quot;</code></td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Max pages: Stop after this many pages (keeps a run&#x27;s cost predictable).</td><td><code>20</code></td></tr>
+<tr><td><code>proxyConfiguration</code></td><td>object</td><td>Proxy: Proxy for the platform run (ignored on a local run).</td><td><code>&quot;{\&quot;useApifyProxy\&quot;: true}&quot;</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>url</code></td><td>str</td></tr>
+<tr><td><code>sheetTitle</code></td><td>str</td></tr>
+<tr><td><code>rowIndex</code></td><td>int</td></tr>
+<tr><td><code>data</code></td><td>str</td></tr>
+</table></div>
+<h2>Sample output</h2><p class="mute">The first 3 results of its latest test run on the platform (long values shortened).</p>
+<pre>[
+  {
+    &quot;data&quot;: &quot;{\&quot;Crisco\&quot;: \&quot;CONTINUOUS\&quot;, \&quot;LinearOptimizationSheet\&quot;: \&quot;\&quot;, \&quot;Milk\&quot;: \&quot;CONTINUOUS\&quot;, \&quot;Variable Name\&quot;: \&quot;Type\&quot;, \&quot;apples\&quot;: \&quot;CONTINUOUS\&quot;, \&quot;asparagus (can)\&quot;: \&quot;CONTINUOUS\&quot;,…&quot;,
+    &quot;rowIndex&quot;: 1,
+    &quot;sheetTitle&quot;: &quot;LinearOptimizationSheet, column_2, Variable Name, wheat flour (enriched), macaroni, wheat cereal (enriched), corn flakes, corn meal, hominy grits, rice, rolled…&quot;,
+    &quot;url&quot;: &quot;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0&quot;
+  },
+  {
+    &quot;data&quot;: &quot;{\&quot;Crisco\&quot;: \&quot;0\&quot;, \&quot;LinearOptimizationSheet\&quot;: \&quot;\&quot;, \&quot;Milk\&quot;: \&quot;0\&quot;, \&quot;Variable Name\&quot;: \&quot;Lower Bound\&quot;, \&quot;apples\&quot;: \&quot;0\&quot;, \&quot;asparagus (can)\&quot;: \&quot;0\&quot;, \&quot;bacon\&quot;: \&quot;0\&quot;, \&quot;bananas\&quot;: \&quot;0\&quot;…&quot;,
+    &quot;rowIndex&quot;: 2,
+    &quot;sheetTitle&quot;: &quot;LinearOptimizationSheet, column_2, Variable Name, wheat flour (enriched), macaroni, wheat cereal (enriched), corn flakes, corn meal, hominy grits, rice, rolled…&quot;,
+    &quot;url&quot;: &quot;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0&quot;
+  },
+  {
+    &quot;data&quot;: &quot;{\&quot;Crisco\&quot;: \&quot;Infinity\&quot;, \&quot;LinearOptimizationSheet\&quot;: \&quot;\&quot;, \&quot;Milk\&quot;: \&quot;Infinity\&quot;, \&quot;Variable Name\&quot;: \&quot;Upper Bound\&quot;, \&quot;apples\&quot;: \&quot;Infinity\&quot;, \&quot;asparagus (can)\&quot;: \&quot;Infinity\&quot;, …&quot;,
+    &quot;rowIndex&quot;: 3,
+    &quot;sheetTitle&quot;: &quot;LinearOptimizationSheet, column_2, Variable Name, wheat flour (enriched), macaroni, wheat cereal (enriched), corn flakes, corn meal, hominy grits, rice, rolled…&quot;,
+    &quot;url&quot;: &quot;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0&quot;
+  }
+]</pre>
+<h2>Call it from code</h2><p>With the Apify API (one request; the response is the results):</p>
+<pre>curl -X POST &quot;https://api.apify.com/v2/acts/nonstop_poacher~apify-google-sheets-alt/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{&quot;maxPages&quot;: 20, &quot;proxyConfiguration&quot;: {&quot;useApifyProxy&quot;: true}, &quot;startUrls&quot;: [{&quot;url&quot;: &quot;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0&quot;}]}&#x27;</pre>
+<p>With the Python client (<code>pip install apify-client</code>):</p>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;nonstop_poacher/apify-google-sheets-alt&quot;).call(run_input={&#x27;maxPages&#x27;: 20,
+ &#x27;proxyConfiguration&#x27;: {&#x27;useApifyProxy&#x27;: True},
+ &#x27;startUrls&#x27;: [{&#x27;url&#x27;: &#x27;https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8Xv29_8PWuuW15qmAE/export?format=csv&amp;gid=0&#x27;}]})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</pre>
+<p>From an AI agent: connect <a href="https://mcp.apify.com">Apify's MCP server</a> and add the Actor <code>nonstop_poacher/apify-google-sheets-alt</code>.</p>
+<h2>Questions</h2>
+<p><strong>What does it cost?</strong> $0.80 per 1,000 results, charged per result through your Apify account. You pay only for results it returns.</p>
+<p><strong>Something wrong?</strong> Open an issue on the Issues tab of its Store page.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=actors/apify-google-sheets-alt.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>

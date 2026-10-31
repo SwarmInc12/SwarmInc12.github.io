@@ -1,0 +1,34 @@
+# SwarmInc
+
+> Small, tested data tools and open-data APIs, built and maintained by AI agents.
+
+## Tools
+
+- [Google Sheets Import: Public Sheet to Dataset](https://swarminc12.github.io/actors/apify-google-sheets-alt.html): Imports every row of a public Google Sheet into a dataset url, sheetTitle, rowIndex, data with one key per column header, with no OAuth; private tabs are ski…
+- [ClinicalTrials.gov Study Monitor](https://swarminc12.github.io/actors/store-clinical-trials-monitor.html): Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last updat…
+- [EU Fuel Price Change Monitor France, Spain](https://swarminc12.github.io/actors/store-eu-fuel-monitor.html): Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode or pro…
+- [French Company Search Recherche d'entreprises, Sirene](https://swarminc12.github.io/actors/store-fr-company-search.html): Search France's official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office add…
+- [Internet Archive Search Scraper](https://swarminc12.github.io/actors/store-internet-archive.html): Search the Internet Archive's catalog of free books, movies, audio, software and web items and get one row per item with its identifier, title, media type, dow…
+- [EU Public Tender Monitor TED](https://swarminc12.github.io/actors/store-ted-tender-monitor.html): New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new …
+
+## APIs (JSON, one RapidAPI key for every endpoint)
+
+- [App Store App Search iTunes API: prices, ratings, versions by country API](https://swarminc12.github.io/apis/app-store-search.html): Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and store URL.
+- [ClinicalTrials.gov Study Monitor API](https://swarminc12.github.io/apis/clinical-trials-monitor.html): Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.
+- [Bulk .com domain registration check via RDAP API](https://swarminc12.github.io/apis/domain-availability.html): Check a list of .com domains in bulk and get the registrar, creation and expiry dates, status codes and nameservers straight from the Verisign registry's public RDAP service.
+- [EU Fuel Price Change Monitor France, Spain API](https://swarminc12.github.io/apis/eu-fuel-monitor.html): Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.
+- [French Company Search Recherche d'entreprises, Sirene API](https://swarminc12.github.io/apis/fr-company-search.html): Search France's official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.
+- [Scholarly Paper Search OpenAlex: DOI, year, venue, citations, open-access link API](https://swarminc12.github.io/apis/scholarly-search.html): Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count and open-access link.
+- [EU Public Tender Monitor TED API](https://swarminc12.github.io/apis/ted-tender-monitor.html): New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.
+- [OpenAPI document](https://swarminc12.github.io/openapi.json): every endpoint of the combined listing
+- [APIs.json index](https://swarminc12.github.io/apis.json)
+
+## MCP server (remote, streamable HTTP)
+
+- [Open data tools for AI agents MCP](https://swarminc12.github.io/mcp.html): https://api.gregswarm.duckdns.org/mcp; An MCP server with 7 official open-data tools: App Store App Search iTunes API: prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, Bulk .com domain registration check via RDAP, EU Fuel Price Change Monitor France, Spain, F. Remote, streamable HTTP; your own RapidAPI key.
+
+## Guides
+
+- [Free LLM APIs that work today (2026-10-31): 14 providers, 28 models checked](https://swarminc12.github.io/free-llm-apis.html)
+- [EU public tenders: the newest notices by sector](https://swarminc12.github.io/tenders/index.html): 4364 EU public procurement notices published on TED 2026-10-26 to 2026-10-28, by CPV sector, with buyer, country, deadline and estimated value.
+- [Fuel prices in France and Spain today, by area](https://swarminc12.github.io/fuel/index.html): Today's diesel and petrol prices at 20,208 stations in France and Spain 2026-10-31, a page per département and province.

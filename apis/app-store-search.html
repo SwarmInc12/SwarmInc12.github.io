@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Store App Search (iTunes API): prices, ratings, versions by country API | SwarmInc</title>
+<meta name="description" content="Search Apple&#x27;s App Store by keyword in any storefront country and get each app&#x27;s developer, price, rating, version, release date, genre, size, minimum OS and store URL.">
+<link rel="canonical" href="https://swarminc12.github.io/apis/app-store-search.html">
+<meta property="og:title" content="App Store App Search (iTunes API): prices, ratings, versions by country API | SwarmInc">
+<meta property="og:description" content="Search Apple&#x27;s App Store by keyword in any storefront country and get each app&#x27;s developer, price, rating, version, release date, genre, size, minimum OS and store URL.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fbfbf9;--fg:#1d1d1b;--mute:#5d5d58;--line:#e3e2dc;--acc:#1f5fbf;--code:#f1f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--mute:#a3a29b;--line:#2f2e2b;--acc:#7aa7f0;--code:#1f1e1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}header.top{border-bottom:1px solid var(--line)}
+header.top div{max-width:860px;margin:0 auto;padding:14px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+header.top a{color:var(--fg);text-decoration:none}header.top .brand{font-weight:700}
+a{color:var(--acc)}h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.25rem;margin:1.8em 0 .5em}
+p.lede{font-size:1.1rem;color:var(--mute)}.mute{color:var(--mute)}.btn{display:inline-block;padding:9px 16px;border-radius:8px;
+background:var(--acc);color:#fff;text-decoration:none;font-weight:600}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}
+code{padding:1px 5px}pre{padding:12px 14px;overflow-x:auto}.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+footer{max-width:860px;margin:0 auto;padding:24px 16px;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and store URL.", "documentation": "https://swarminc12.github.io/apis/app-store-search.html", "name": "App Store App Search (iTunes API): prices, ratings, versions by country API", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://rapidapi.com/IanGregory/api/app-store-search-api-itunes-prices-ratings-49-countries"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#tools">Tools</a><a href="../index.html#apis">APIs</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a></div></header>
+<main><p class="mute">REST API &middot; JSON &middot; through RapidAPI</p>
+<h1>App Store App Search (iTunes API): prices, ratings, versions by country API</h1>
+<p class="lede">Search Apple&#x27;s App Store by keyword in any storefront country and get each app&#x27;s developer, price, rating, version, release date, genre, size, minimum OS and store URL.</p>
+<p>Read from the official source when you call (itunes.apple.com); no personal data. <code>GET /v1/app-store-search</code> answers <code>{"product", "count", "items", "fetched_at"}</code>.</p>
+<p class="mute">Source: Apple Search API (iTunes Search and Lookup), under <a href="https://performance-partners.apple.com/search-api" rel="nofollow">Apple&#x27;s Search API terms (Promo Content)</a>. Every answer carries this attribution in its <code>sources</code> field.</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi/app-store-search?from=apis/app-store-search.html">Get a key on RapidAPI</a> <span class="mute">&nbsp;plans and pricing are on the listing; one key covers every endpoint.</span></p>
+<h2>Parameters</h2><div class="table"><table><tr><th>Parameter</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>term</code></td><td>string</td><td>Keyword to search for in the App Store (for example budget, photo editor, meditation).</td><td><code>&quot;budget&quot;</code></td></tr>
+<tr><td><code>country</code></td><td>string</td><td>Two-letter App Store country code, which sets the prices, currency and ratings returned. One of: us, gb, ca, au, nz, ie, fr, de, es, it, pt, nl, be, at, ch, se, no, dk, fi, pl, cz, tr, gr, jp, kr, cn, hk, tw, sg, in, id, th, vn, ph, my, br, mx, ar, cl, co, za, ae, sa, il, eg, ng, ua, ro, hu.</td><td><code>&quot;us&quot;</code></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>How many apps to return (Apple allows up to 200 per search).</td><td><code>50</code></td></tr>
+</table></div>
+<h2>What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>app_id</code></td><td>id</td></tr>
+<tr><td><code>name</code></td><td>text</td></tr>
+<tr><td><code>developer</code></td><td>text</td></tr>
+<tr><td><code>developer_id</code></td><td>id</td></tr>
+<tr><td><code>bundle_id</code></td><td>text</td></tr>
+<tr><td><code>price</code></td><td>price</td></tr>
+<tr><td><code>formatted_price</code></td><td>text</td></tr>
+<tr><td><code>currency</code></td><td>currency</td></tr>
+<tr><td><code>average_rating</code></td><td>number</td></tr>
+<tr><td><code>rating_count</code></td><td>integer</td></tr>
+<tr><td><code>average_rating_current_version</code></td><td>number</td></tr>
+<tr><td><code>rating_count_current_version</code></td><td>integer</td></tr>
+<tr><td><code>version</code></td><td>text</td></tr>
+<tr><td><code>version_release_date</code></td><td>datetime</td></tr>
+<tr><td><code>release_date</code></td><td>datetime</td></tr>
+<tr><td><code>primary_genre</code></td><td>text</td></tr>
+<tr><td><code>size_bytes</code></td><td>integer</td></tr>
+<tr><td><code>minimum_os</code></td><td>text</td></tr>
+<tr><td><code>content_rating</code></td><td>text</td></tr>
+<tr><td><code>seller_name</code></td><td>text</td></tr>
+<tr><td><code>store_url</code></td><td>url</td></tr>
+</table></div>
+<h2>Call it</h2><p>With curl:</p><pre>curl -G &quot;https://app-store-search-api-itunes-prices-ratings-49-countries.p.rapidapi.com/v1/app-store-search&quot; \
+  --data-urlencode term=budget \
+  --data-urlencode country=us \
+  --data-urlencode limit=50 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: app-store-search-api-itunes-prices-ratings-49-countries.p.rapidapi.com&quot;</pre>
+<p>With Python (<code>pip install requests</code>):</p><pre>import os, requests
+
+r = requests.get(
+    &quot;https://app-store-search-api-itunes-prices-ratings-49-countries.p.rapidapi.com/v1/app-store-search&quot;,
+    params={&#x27;term&#x27;: &#x27;budget&#x27;, &#x27;country&#x27;: &#x27;us&#x27;, &#x27;limit&#x27;: 50},
+    headers={&quot;X-RapidAPI-Key&quot;: os.environ[&quot;RAPIDAPI_KEY&quot;], &quot;X-RapidAPI-Host&quot;: &quot;app-store-search-api-itunes-prices-ratings-49-countries.p.rapidapi.com&quot;},
+    timeout=120,
+)
+for item in r.json()[&quot;items&quot;]:
+    print(item)</pre>
+<p>For code and AI agents that pick tools at run time, <code>GET /v1/products</code> lists every endpoint with its parameters and fields.</p>
+<h2>Questions</h2><p><strong>How fresh is it?</strong> Each call reads the official source then; an identical query within 15 minutes is answered from a cache.</p><p><strong>What if the source is down?</strong> The answer says so: a 502, or <code>"partial": true</code> when only some of its requests failed.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>.</footer>
+<img src="https://api.gregswarm.duckdns.org/p?u=apis/app-store-search.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer">
+</body>
+</html>
