@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClinicalTrials.gov Study Monitor API | SwarmInc</title>
+<meta name="description" content="Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.">
+<link rel="canonical" href="https://swarminc12.github.io/apis/clinical-trials-monitor.html">
+<meta property="og:title" content="ClinicalTrials.gov Study Monitor API | SwarmInc">
+<meta property="og:description" content="Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fafaf7;--fg:#17181a;--mute:#626469;--line:#e4e3dd;--acc:#1552b8;--acc2:#0e3f8f;--code:#f0efe9;--card:#fff;--ok:#157a3b;--chip:#eef2fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121315;--fg:#ebeae5;--mute:#a1a19a;--line:#2b2c2f;--acc:#86adf5;--acc2:#a9c6fa;--code:#1c1d20;--card:#191a1d;--ok:#5fd08a;--chip:#1e2633}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 16px 72px}a{color:var(--acc)}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top div{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top a{color:var(--fg);text-decoration:none;padding:4px 0}header.top .brand{font-weight:800;letter-spacing:.2px;margin-right:6px}
+header.top .cta{margin-left:auto;background:var(--acc);color:#fff;padding:7px 13px;border-radius:8px;font-weight:600}
+h1{font-size:2rem;line-height:1.15;margin:.2em 0 .35em}h2{font-size:1.3rem;margin:2em 0 .6em}h3{font-size:1.05rem;margin:1.2em 0 .4em}
+p.lede{font-size:1.15rem;color:var(--mute);max-width:62ch}.mute{color:var(--mute)}
+.btn{display:inline-block;padding:11px 18px;border-radius:9px;background:var(--acc);color:#fff;text-decoration:none;font-weight:650}
+.btn:hover{background:var(--acc2)}.btn.ghost{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start;margin:12px 0 28px}.hero>*{min-width:0}
+h1,p.lede,.chip{overflow-wrap:anywhere}.panel pre{max-width:100%}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.panel .price{font-size:1.5rem;font-weight:750;margin:0 0 2px}.panel .sub{color:var(--mute);font-size:.95rem;margin:0 0 12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}.chip{background:var(--chip);color:var(--fg);border-radius:999px;padding:3px 11px;font-size:.86rem}
+.search{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font-size:1rem;margin:6px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;list-style:none;padding:0;margin:0}
+.grid li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.grid li a.t{font-weight:700;text-decoration:none;color:var(--fg);font-size:1.05rem}.grid li .k{color:var(--mute);font-size:.9rem}
+.grid li .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;padding-top:8px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:0;list-style:none;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}.steps li::before{counter-increment:s;content:counter(s);display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;text-align:center;line-height:26px;font-weight:700;margin-bottom:8px}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-weight:650}
+code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}code{padding:1px 5px}pre{padding:13px 15px;overflow-x:auto;border:1px solid var(--line)}
+.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+.toc{display:flex;gap:14px;flex-wrap:wrap;font-size:.92rem;margin:4px 0 18px}.toc a{text-decoration:none}
+footer{max-width:980px;margin:0 auto;padding:22px 16px 40px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+.ok{color:var(--ok);font-weight:600}.hidden{display:none}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.", "documentation": "https://swarminc12.github.io/apis/clinical-trials-monitor.html", "name": "ClinicalTrials.gov Study Monitor API", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://rapidapi.com/IanGregory/api/clinical-trials-monitor-api-clinicaltrials-gov-changes"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#apis">APIs</a><a href="../index.html#tools">Actors</a><a href="../mcp.html">For AI agents</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a><a class="cta" href="../index.html#start">Get started</a></div></header>
+<main><p class="mute"><a href="../index.html">All products</a> &rsaquo; REST API &middot; JSON &middot; through RapidAPI</p>
+<section class="hero"><div>
+<h1>ClinicalTrials.gov Study Monitor API</h1>
+<p class="lede">Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.</p>
+<div class="chips"><span class="chip">No personal data</span><span class="chip">Read from the source at call time</span><span class="chip">12 fields a result</span><span class="chip">filter by condition, phase, status</span></div>
+<p class="mute">Source: ClinicalTrials.gov (U.S. National Library of Medicine), under <a href="https://classic.clinicaltrials.gov/ct2/about-site/terms-conditions" rel="nofollow">NLM&#x27;s terms and conditions</a>. Every answer carries this attribution in its <code>sources</code> field.</p>
+<p class="toc"><a href="#params">Parameters</a><a href="#fields">Fields</a><a href="#sample">Sample</a><a href="#call">Call it</a><a href="#faq">Questions</a></p>
+</div><div class="panel">
+<p class="price">Free plan</p><p class="sub">Free plan: 1,000 calls a month. Paid from $8.99 a month. Billed by RapidAPI; no card for the free plan.</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi/clinical-trials-monitor?from=apis/clinical-trials-monitor.html">Get a key on RapidAPI</a></p>
+<p class="mute" style="margin:12px 0 6px">One call:</p><pre>curl -G &quot;https://clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com/v1/clinical-trials-monitor&quot; \
+  --data-urlencode &#x27;condition=breast cancer&#x27; \
+  --data-urlencode phase=PHASE2 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com&quot;</pre>
+<p class="mute" style="margin:8px 0 0;font-size:.9rem">Answers <code>{"product", "count", "items", "fetched_at"}</code>; reads clinicaltrials.gov when you call.</p>
+</div></section>
+<h2 id="params">Parameters</h2><div class="table"><table><tr><th>Parameter</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>condition</code></td><td>string</td><td>Disease or condition to follow (for example breast cancer, type 2 diabetes, Alzheimer).</td><td><code>&quot;breast cancer&quot;</code></td></tr>
+<tr><td><code>phase</code></td><td>string</td><td>Study phase to follow. One of: EARLY_PHASE1, PHASE1, PHASE2, PHASE3, PHASE4.</td><td><code>&quot;PHASE2&quot;</code></td></tr>
+<tr><td><code>status</code></td><td>string</td><td>Recruitment status to follow. One of: RECRUITING, NOT_YET_RECRUITING, ACTIVE_NOT_RECRUITING, ENROLLING_BY_INVITATION, COMPLETED, TERMINATED, WITHDRAWN, SUSPENDED.</td><td><code>&quot;RECRUITING&quot;</code></td></tr>
+<tr><td><code>updated_since</code></td><td>string</td><td>Only studies whose record was last updated on or after this date (YYYY-MM-DD).</td><td><code>&quot;2025-01-01&quot;</code></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>At most this many results (1&ndash;1000, default 100).</td><td><code>20</code></td></tr>
+</table></div>
+<h2 id="fields">What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>nct_id</code></td><td>id</td></tr>
+<tr><td><code>title</code></td><td>text</td></tr>
+<tr><td><code>sponsor</code></td><td>text</td></tr>
+<tr><td><code>phase</code></td><td>list</td></tr>
+<tr><td><code>status</code></td><td>text</td></tr>
+<tr><td><code>enrollment</code></td><td>integer</td></tr>
+<tr><td><code>start_date</code></td><td>date</td></tr>
+<tr><td><code>completion_date</code></td><td>date</td></tr>
+<tr><td><code>last_update_date</code></td><td>date</td></tr>
+<tr><td><code>conditions</code></td><td>list</td></tr>
+<tr><td><code>lead_intervention</code></td><td>text</td></tr>
+<tr><td><code>first_country</code></td><td>text</td></tr>
+</table></div>
+<h2 id="sample">Sample results</h2><p class="mute">The first 3 results of the same source's latest test run (long values shortened).</p>
+<pre>[
+  {
+    &quot;completion_date&quot;: &quot;2028-09-30&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Anatomic Stage I Breast Cancer AJCC v8\&quot;, \&quot;Anatomic Stage II Breast Cancer AJCC v8\&quot;, \&quot;Early Stage HER2-Positive Breast Carcinoma\&quot;, \&quot;Early Stage Triple-Negativ…&quot;,
+    &quot;enrollment&quot;: 120,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-11-03&quot;,
+    &quot;lead_intervention&quot;: &quot;Biospecimen Collection&quot;,
+    &quot;nct_id&quot;: &quot;NCT07407920&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;M.D. Anderson Cancer Center&quot;,
+    &quot;start_date&quot;: &quot;2025-10-09&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;Ph2 Study for Optimization of Adjunct Systemic Therapy in HER2+ Patients, MolecularPCR Trial&quot;
+  },
+  {
+    &quot;completion_date&quot;: &quot;2031-10-31&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Breast Cancer\&quot;]&quot;,
+    &quot;enrollment&quot;: 80,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-11-03&quot;,
+    &quot;lead_intervention&quot;: &quot;Inavolisib&quot;,
+    &quot;nct_id&quot;: &quot;NCT07368998&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;Hoffmann-La Roche&quot;,
+    &quot;start_date&quot;: &quot;2026-02-18&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;To Study the Effect of Inavolisib in Combination With Fulvestrant in Participants With Breast Cancer&quot;
+  },
+  {
+    &quot;completion_date&quot;: &quot;2028-03-01&quot;,
+    &quot;conditions&quot;: &quot;[\&quot;Breast Cancer Early Stage Breast Cancer (Stage 1-3)\&quot;]&quot;,
+    &quot;enrollment&quot;: 92,
+    &quot;first_country&quot;: &quot;United States&quot;,
+    &quot;first_seen&quot;: true,
+    &quot;last_update_date&quot;: &quot;2026-11-03&quot;,
+    &quot;lead_intervention&quot;: &quot;Fezolinetant&quot;,
+    &quot;nct_id&quot;: &quot;NCT06917313&quot;,
+    &quot;phase&quot;: &quot;[\&quot;PHASE2\&quot;]&quot;,
+    &quot;previous&quot;: null,
+    &quot;sponsor&quot;: &quot;Yale University&quot;,
+    &quot;start_date&quot;: &quot;2025-12-05&quot;,
+    &quot;status&quot;: &quot;RECRUITING&quot;,
+    &quot;title&quot;: &quot;FLASH-Breast: Evaluating the Efficacy of Fezolinetant in Reducing Vasomotor Symptoms in Women With Breast Cancer on Endocrine Therapy&quot;
+  }
+]</pre>
+<section class="first-call" id="first-call"><h2>First call in 60 seconds</h2><ol class="steps"><li><p><a href="https://api.gregswarm.duckdns.org/go/rapidapi/clinical-trials-monitor?from=apis/clinical-trials-monitor.html">Get a key on RapidAPI (the free plan needs no card)</a></p></li><li><p>Run one call with the example input (curl, through RapidAPI):</p><pre>curl -G &quot;https://clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com/v1/clinical-trials-monitor&quot; \
+  --data-urlencode &#x27;condition=breast cancer&#x27; \
+  --data-urlencode phase=PHASE2 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com&quot;</pre></li><li><p>Read the answer. The first result of the record's own sample run, fields nct_id, title, sponsor, phase, status, enrollment:</p><pre>{
+  &quot;completion_date&quot;: &quot;2028-09-30&quot;,
+  &quot;conditions&quot;: &quot;[\&quot;Anatomic Stage I Breast Cancer AJCC v8\&quot;, \&quot;Anatomic Stage II Breast Cancer AJCC v8\&quot;, \&quot;Early Stage HER2-Positive Breast Carcinoma\&quot;, \&quot;Early Stage Triple-Negativ…&quot;,
+  &quot;enrollment&quot;: 120,
+  &quot;first_country&quot;: &quot;United States&quot;,
+  &quot;first_seen&quot;: true,
+  &quot;last_update_date&quot;: &quot;2026-11-03&quot;,
+  &quot;lead_intervention&quot;: &quot;Biospecimen Collection&quot;,
+  &quot;nct_id&quot;: &quot;NCT07407920&quot;
+}</pre></li></ol></section>
+<h2 id="call">Call it</h2><p>With curl:</p><pre>curl -G &quot;https://clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com/v1/clinical-trials-monitor&quot; \
+  --data-urlencode &#x27;condition=breast cancer&#x27; \
+  --data-urlencode phase=PHASE2 \
+  --data-urlencode status=RECRUITING \
+  --data-urlencode updated_since=2025-01-01 \
+  --data-urlencode limit=20 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com&quot;</pre>
+<p>With Python (<code>pip install requests</code>):</p><pre>import os, requests
+
+r = requests.get(
+    &quot;https://clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com/v1/clinical-trials-monitor&quot;,
+    params={&#x27;condition&#x27;: &#x27;breast cancer&#x27;,
+ &#x27;phase&#x27;: &#x27;PHASE2&#x27;,
+ &#x27;status&#x27;: &#x27;RECRUITING&#x27;,
+ &#x27;updated_since&#x27;: &#x27;2025-01-01&#x27;,
+ &#x27;limit&#x27;: 20},
+    headers={&quot;X-RapidAPI-Key&quot;: os.environ[&quot;RAPIDAPI_KEY&quot;], &quot;X-RapidAPI-Host&quot;: &quot;clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com&quot;},
+    timeout=120,
+)
+for item in r.json()[&quot;items&quot;]:
+    print(item)</pre>
+<p>For code and AI agents that pick tools at run time, <code>GET /v1/products</code> lists every endpoint with its parameters and fields.</p>
+<h2 id="guides">Guides</h2><ul class="cards"><li><a href="../guides/n8n-clinical-trials-monitor-google-sheets.html">Monitor clinical trials by condition, phase and status each morning and append new studies to Google Sheets</a></li></ul>
+<h2 id="faq">Questions</h2><p><strong>What does it cost?</strong> Free plan: 1,000 calls a month. Paid from $8.99 a month.</p><p><strong>How fresh is it?</strong> Each call reads the official source then; an identical query within 15 minutes is answered from a cache.</p><p class="mute" id="freshness">Data last read <span class="vol">7 Nov 2026</span>; the company&#x27;s freshness target: 1 day (a monitor, run daily; late after 1 day 6 h) — on time.</p><p><strong>What if the source is down?</strong> The answer says so: a 502, or <code>"partial": true</code> when only some of its requests failed. Whether it is down now: <a href="../status.html">the status page</a>.</p><p><strong>Can a field change?</strong> Yes, without notice: this API doesn't record its changes yet, and the <a href="../openapi.json">OpenAPI document</a> is the contract as it stands today. <a href="../deprecation.html">How changes are announced</a>.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>. <span class="disclosure">Built and operated by AI agents under human ownership; see <a href="../disclosure.html">/disclosure</a>.</span> <a href="../terms.html">Terms</a> &middot; <a href="../privacy.html">Privacy</a> <span class="nw"><a href="../status.html">Status</a> &middot; <a href="../docs.html">API docs</a> &middot; <a href="../support.html">Support</a></span></footer>
+<script>(function(){var u="https://api.gregswarm.duckdns.org/p?u=apis/clinical-trials-monitor.html",s='',t='',r='',w='';try{r=document.referrer?new URL(document.referrer).hostname.toLowerCase():''}catch(e){}var q=location.search||'',m=/[?&]utm_source=([^&#]{1,60})/.exec(q);try{w=m?decodeURIComponent(m[1]).toLowerCase():''}catch(e){}var E=[["gemini",/(^|\.)gemini\.google\.com$/],["google",/(^|\.)google\.[a-z]{2,3}(\.[a-z]{2})?$/],["copilot",/(^|\.)copilot\.microsoft\.com$|^copilot$|^copilot\.com$/],["bing",/(^|\.)bing\.com$/],["duckduckgo",/(^|\.)duckduckgo\.com$/],["yahoo",/(^|\.)yahoo\.(com|co\.jp)$/],["ecosia",/(^|\.)ecosia\.org$/],["brave",/(^|\.)search\.brave\.com$/],["yandex",/(^|\.)yandex\.[a-z]{2,3}$|(^|\.)ya\.ru$/],["baidu",/(^|\.)baidu\.com$/],["chatgpt",/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$|^chatgpt$/],["perplexity",/(^|\.)perplexity\.ai$|^perplexity$/],["claude",/(^|\.)claude\.ai$|^claude$/]];function f(h){for(var i=0;i<E.length;i++){if(E[i][1].test(h))return E[i][0]}return ''}if(!r){s=f(w)||'direct'}else if(r!==location.hostname.toLowerCase()){s=f(r)||'other-site'}var g=/[?&]src=([a-z0-9-]{1,40})(?:[&#]|$)/.exec(q);if(g)t=g[1];var i=new Image();i.referrerPolicy='no-referrer';i.src=u+(s?'&s='+s:'')+(t?'&src='+t:'')})();</script>
+<noscript><img src="https://api.gregswarm.duckdns.org/p?u=apis/clinical-trials-monitor.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer"></noscript>
+</body>
+</html>

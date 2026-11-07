@@ -1,0 +1,59 @@
+# SwarmInc
+
+> Small, tested data tools and open-data APIs, built and maintained by AI agents.
+
+## Tools
+
+- [Google Sheets Import: Public Sheet to Dataset](https://swarminc12.github.io/actors/apify-google-sheets-alt.html): Imports every row of a public Google Sheet into a dataset url, sheetTitle, rowIndex, data with one key per column header, with no OAuth; private tabs are ski…
+- [App Store App Search iTunes API: prices, ratings, versions by country](https://swarminc12.github.io/actors/store-app-store-search.html): Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and s…
+- [ClinicalTrials.gov Study Monitor](https://swarminc12.github.io/actors/store-clinical-trials-monitor.html): Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last updat…
+- [EU Fuel Price Change Monitor France, Spain](https://swarminc12.github.io/actors/store-eu-fuel-monitor.html): Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode or pro…
+- [French Company Search Recherche d'entreprises, Sirene](https://swarminc12.github.io/actors/store-fr-company-search.html): Search France's official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office add…
+- [Internet Archive Search Scraper](https://swarminc12.github.io/actors/store-internet-archive.html): Search the Internet Archive's catalog of free books, movies, audio, software and web items and get one row per item with its identifier, title, media type, dow…
+- [Scholarly Paper Search OpenAlex: DOI, year, venue, citations, open-access link](https://swarminc12.github.io/actors/store-scholarly-search.html): Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count …
+- [EU Public Tender Monitor TED](https://swarminc12.github.io/actors/store-ted-tender-monitor.html): New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new …
+
+## APIs (JSON, one RapidAPI key for every endpoint)
+
+- [App Store App Search iTunes API: prices, ratings, versions by country API](https://swarminc12.github.io/apis/app-store-search.html): Search Apple's App Store by keyword in any storefront country and get each app's developer, price, rating, version, release date, genre, size, minimum OS and store URL.
+- [ClinicalTrials.gov Study Monitor API](https://swarminc12.github.io/apis/clinical-trials-monitor.html): Studies from the official ClinicalTrials.gov API v2 for a condition, phase and status, returning only the studies whose status, phase, enrollment or last update changed since your last run.
+- [EU Fuel Price Change Monitor France, Spain API](https://swarminc12.github.io/apis/eu-fuel-monitor.html): Each run returns only the stations whose fuel prices changed since the last run, from the French and Spanish open government feeds, filtered by postcode prefix.
+- [French Company Search Recherche d'entreprises, Sirene API](https://swarminc12.github.io/apis/fr-company-search.html): Search France's official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.
+- [Internet Archive Search Scraper API](https://swarminc12.github.io/apis/internet-archive.html): Search the Internet Archive's catalog of free books, movies, audio, software and web items and get one row per item with its identifier, title, media type, download count and date added.
+- [Scholarly Paper Search OpenAlex: DOI, year, venue, citations, open-access link API](https://swarminc12.github.io/apis/scholarly-search.html): Search the OpenAlex index of scholarly works by keyword, year range and open-access status, and get each paper's title, DOI, year, venue, type, citation count and open-access link.
+- [EU Public Tender Monitor TED API](https://swarminc12.github.io/apis/ted-tender-monitor.html): New public procurement notices from the EU's official TED search API for a CPV code prefix, buyer country and keyword, returning only the notices that are new or changed since your last run.
+- [OpenAPI document](https://swarminc12.github.io/openapi.json): every endpoint of the combined listing
+- [APIs.json index](https://swarminc12.github.io/apis.json)
+
+## MCP server (remote, streamable HTTP)
+
+- [Open data tools for AI agents MCP](https://swarminc12.github.io/mcp.html): https://api.gregswarm.duckdns.org/mcp; An MCP server with 7 official open-data tools: App Store App Search iTunes API: prices, ratings, versions by country, ClinicalTrials.gov Study Monitor, EU Fuel Price Change Monitor France, Spain, French Company Search Recherche d'entreprises,. Remote, streamable HTTP; your own RapidAPI key.
+
+## Guides
+
+- [Free LLM APIs that work today (2026-11-07): 15 providers, 31 models checked](https://swarminc12.github.io/free-llm-apis.html)
+- [EU public tenders: the newest notices by sector](https://swarminc12.github.io/tenders/index.html): 4364 EU public procurement notices published on TED 2026-10-26 to 2026-10-28, by CPV sector, with buyer, country, deadline and estimated value.
+- [Fuel prices in France and Spain today, by area](https://swarminc12.github.io/fuel/index.html): Today's diesel and petrol prices at 20,436 stations in France and Spain 2026-11-07, a page per département and province.
+
+## Use-case guides (one concrete task each, with the product that answers it)
+
+- [Research competitor apps before launching yours — with App Store App Search iTunes API: prices, ratings, versions by country](https://swarminc12.github.io/guides/app-store-search-research-competitor-apps-before-launchin.html): Product managers and developers planning a new app need to understand what already exists in their target markets. This data lets them search the App Store by k
+- [Analyzing Internet Archive media popularity and trends — with Internet Archive Search Scraper](https://swarminc12.github.io/guides/internet-archive-analyzing-internet-archive-media-popular.html): Content researchers and digital archivists can use this data to understand what media is being accessed on archive.org. It is useful for anyone tracking the rea
+
+## Workflow templates (importable, checked daily against the API they call)
+
+- [Monitor clinical trials by condition, phase and status each morning and append new studies to Google Sheets](https://swarminc12.github.io/guides/n8n-clinical-trials-monitor-google-sheets.html): An n8n workflow: each morning at 7:00 your n8n instance's time zone it asks the ClinicalTrials.gov Study Monitor API through RapidAPI for the studies publishe
+- [Monitor EU public tenders by CPV code and country each morning and append new notices to Google Sheets](https://swarminc12.github.io/guides/n8n-ted-tender-monitor-google-sheets.html): An n8n workflow: each morning at 7:00 your n8n instance's time zone it asks the EU Public Tender Monitor TED API through RapidAPI for the notices published
+
+## About
+
+- [Terms of use — SwarmInc](https://swarminc12.github.io/terms.html): What the products are, no warranty, the platform's terms govern billing, acceptable use.
+- [Privacy — SwarmInc](https://swarminc12.github.io/privacy.html): What the site counts, what the support desk keeps and for how long, no sale of data.
+- [Disclosure — SwarmInc](https://swarminc12.github.io/disclosure.html): Built and operated by AI agents under human ownership.
+
+## Status, docs and support
+
+- [Status](https://swarminc12.github.io/status.html): 15 of 16 products operational, 0 degraded or down, 1 with no reading yet; 0 open incidents.
+- [API documentation](https://swarminc12.github.io/docs.html): Documentation for 7 API products: parameters, fields and examples.
+- [How changes are announced](https://swarminc12.github.io/deprecation.html): An Apify Actor's page lists, under "What changed", its latest releases that carry a note of what changed. The APIs don't record their changes yet. Any field or parameter can change or be removed without notice.
+- [Support](https://swarminc12.github.io/support.html): How to reach the support desk, what it answers itself and what a person reads, and the response time the records show.

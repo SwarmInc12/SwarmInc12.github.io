@@ -1,0 +1,315 @@
+{
+ "name": "Monitor EU public tenders by CPV code and country each morning and append new notices to Google Sheets",
+ "nodes": [
+  {
+   "parameters": {
+    "content": "## Monitor EU public tenders by CPV code and country each morning and append new notices to Google Sheets\n\nAn n8n workflow: each morning at 7:00 (your n8n instance's time zone) it asks the EU Public Tender Monitor (TED) API through RapidAPI for the notices published since the day before, a call for each filter you set (country, cpv_prefix), and appends what is new to a Google Sheet. Rows are matched on notice_id: a notice that comes back again updates its own row (overwritten with the latest values) instead of adding a new row.\n\nThe columns are the fields the API returns: notice_id, publication_date, buyer, country_code, title, cpv_codes, procedure, deadline, estimated_value, currency, url. The filters sit in the Code node named Filters; published_since is set from the run date, so no date needs editing.\n\nEach filter makes 1 call a morning, at most 31 calls a month. The listing's free plan is 500 calls a month, so it covers 16 filters with no paid plan; past that, or with more calls of your own, a paid plan is needed (the listing's Pricing tab).\n\nTo run it: import the file into n8n, create a Header Auth credential named X-RapidAPI-Key that holds your RapidAPI key, choose your spreadsheet in the Google Sheets node, and give it a tab named Notices whose header row holds the column names.\n\n**Get a RapidAPI key** (the free plan needs no card): https://api.gregswarm.duckdns.org/go/rapidapi/ted-tender-monitor?from=n8n-ted-tender-monitor\n\n**The guide:** https://swarminc12.github.io/guides/n8n-ted-tender-monitor-google-sheets.html?src=n8n-ted-tender-monitor\n\nData: api.ted.europa.eu, read when the workflow calls. Made by SwarmInc, a company run by AI agents.",
+    "height": 560,
+    "width": 520,
+    "color": 5
+   },
+   "id": "c4e879f9-148b-5d2c-ad40-90db8185fe28",
+   "name": "About this workflow",
+   "type": "n8n-nodes-base.stickyNote",
+   "typeVersion": 1,
+   "position": [
+    -420,
+    -260
+   ]
+  },
+  {
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "days",
+       "triggerAtHour": 7
+      }
+     ]
+    }
+   },
+   "id": "1cbbad7d-2640-532f-9fb2-2d2c87b11a8f",
+   "name": "Each morning",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    140,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "jsCode": "// One API call a filter, each morning. Add an object per filter; the parameters: country, cpv_prefix, keyword.\nconst filters = [{\"cpv_prefix\": \"72\", \"country\": \"FRA\"}];\n// published_since: the day before the run, so each morning brings what was published since the last one (repeats are matched on notice_id).\nconst since = $now.minus({ days: 1 }).toFormat('yyyyMMdd');\nreturn filters.map((f) => ({ json: { ...f, published_since: since, limit: 100, src: 'n8n-ted-tender-monitor' } }));"
+   },
+   "id": "75412f65-9afe-5aff-907d-b1bea77e9f01",
+   "name": "Filters",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    360,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "url": "https://eu-tenders-monitor-api-ted-new-notices-by-cpv-country.p.rapidapi.com/v1/ted-tender-monitor",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "specifyQuery": "json",
+    "jsonQuery": "={{ JSON.stringify($json) }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "X-RapidAPI-Host",
+       "value": "eu-tenders-monitor-api-ted-new-notices-by-cpv-country.p.rapidapi.com"
+      }
+     ]
+    },
+    "options": {
+     "batching": {
+      "batch": {
+       "batchSize": 1,
+       "batchInterval": 11000
+      }
+     },
+     "timeout": 120000
+    }
+   },
+   "id": "5646a5c2-826e-5f2a-862d-413cd9323539",
+   "name": "EU Public Tender Monitor (TED) API",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    580,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "fieldToSplitOut": "items",
+    "options": {}
+   },
+   "id": "06da2114-2fc3-5751-9128-f8dc08557f72",
+   "name": "One row a result",
+   "type": "n8n-nodes-base.splitOut",
+   "typeVersion": 1,
+   "position": [
+    800,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "compare": "selectedFields",
+    "fieldsToCompare": "notice_id",
+    "options": {}
+   },
+   "id": "ef4dc26e-e6f2-5458-8c20-46786c7ebf36",
+   "name": "Once a notice_id",
+   "type": "n8n-nodes-base.removeDuplicates",
+   "typeVersion": 2,
+   "position": [
+    1020,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "assignments": {
+     "assignments": [
+      {
+       "id": "23be3286-a73f-508e-a8b6-d18d9f4b544e",
+       "name": "notice_id",
+       "value": "={{ $json.notice_id }}",
+       "type": "string"
+      },
+      {
+       "id": "80aa1425-04ea-5607-8a77-871aaf8c4cd6",
+       "name": "publication_date",
+       "value": "={{ $json.publication_date }}",
+       "type": "string"
+      },
+      {
+       "id": "ff037f7f-6542-597f-b50c-3391439dad54",
+       "name": "buyer",
+       "value": "={{ $json.buyer }}",
+       "type": "string"
+      },
+      {
+       "id": "e1ad9382-345e-542a-9de8-9085e25fc316",
+       "name": "country_code",
+       "value": "={{ $json.country_code }}",
+       "type": "string"
+      },
+      {
+       "id": "902746eb-8176-5770-9b71-806cede00285",
+       "name": "title",
+       "value": "={{ $json.title }}",
+       "type": "string"
+      },
+      {
+       "id": "ca3c49a3-ca14-5729-9f05-590c7dddae11",
+       "name": "cpv_codes",
+       "value": "={{ ($json.cpv_codes || []).join(', ') }}",
+       "type": "string"
+      },
+      {
+       "id": "953c8409-9e7b-5588-8ff6-fd6216522980",
+       "name": "procedure",
+       "value": "={{ $json.procedure }}",
+       "type": "string"
+      },
+      {
+       "id": "c1167c9e-ff12-5332-ac23-cb991cf34ce5",
+       "name": "deadline",
+       "value": "={{ $json.deadline }}",
+       "type": "string"
+      },
+      {
+       "id": "ec71d2c4-eb20-5193-8a1f-536d24156a57",
+       "name": "estimated_value",
+       "value": "={{ $json.estimated_value }}",
+       "type": "number"
+      },
+      {
+       "id": "b2b439c6-fbf4-5105-aaaa-46520086c1f0",
+       "name": "currency",
+       "value": "={{ $json.currency }}",
+       "type": "string"
+      },
+      {
+       "id": "ed81fd9e-b3e2-5146-80a2-05b7d0fa7196",
+       "name": "url",
+       "value": "={{ $json.url }}",
+       "type": "string"
+      }
+     ]
+    },
+    "options": {}
+   },
+   "id": "87202ddf-8c89-5362-b3cb-bb8e940f3993",
+   "name": "Columns",
+   "type": "n8n-nodes-base.set",
+   "typeVersion": 3.4,
+   "position": [
+    1240,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "operation": "appendOrUpdate",
+    "documentId": {
+     "__rl": true,
+     "value": "",
+     "mode": "list"
+    },
+    "sheetName": {
+     "__rl": true,
+     "value": "Notices",
+     "mode": "name"
+    },
+    "columns": {
+     "mappingMode": "autoMapInputData",
+     "value": {},
+     "matchingColumns": [
+      "notice_id"
+     ],
+     "schema": []
+    },
+    "options": {}
+   },
+   "id": "896d1d43-7e63-5283-b3f9-ca8f05638f12",
+   "name": "Google Sheets",
+   "type": "n8n-nodes-base.googleSheets",
+   "typeVersion": 4.5,
+   "position": [
+    1460,
+    0
+   ]
+  }
+ ],
+ "connections": {
+  "Each morning": {
+   "main": [
+    [
+     {
+      "node": "Filters",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Filters": {
+   "main": [
+    [
+     {
+      "node": "EU Public Tender Monitor (TED) API",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "EU Public Tender Monitor (TED) API": {
+   "main": [
+    [
+     {
+      "node": "One row a result",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "One row a result": {
+   "main": [
+    [
+     {
+      "node": "Once a notice_id",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Once a notice_id": {
+   "main": [
+    [
+     {
+      "node": "Columns",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Columns": {
+   "main": [
+    [
+     {
+      "node": "Google Sheets",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "pinData": {},
+ "settings": {
+  "executionOrder": "v1"
+ },
+ "meta": {
+  "templateCredsSetupCompleted": false,
+  "swarminc": {
+   "tag": "n8n-ted-tender-monitor",
+   "product": "ted-tender-monitor",
+   "n8n-nodes-base": "2.43.6"
+  }
+ },
+ "tags": []
+}
