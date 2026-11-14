@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>French Company Search (Recherche d&#x27;entreprises, Sirene) API | SwarmInc</title>
+<meta name="description" content="Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.">
+<link rel="canonical" href="https://swarminc12.github.io/apis/fr-company-search.html">
+<meta property="og:title" content="French Company Search (Recherche d&#x27;entreprises, Sirene) API | SwarmInc">
+<meta property="og:description" content="Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.">
+<meta property="og:type" content="website">
+<style>
+:root{--bg:#fafaf7;--fg:#17181a;--mute:#626469;--line:#e4e3dd;--acc:#1552b8;--acc2:#0e3f8f;--code:#f0efe9;--card:#fff;--ok:#157a3b;--chip:#eef2fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121315;--fg:#ebeae5;--mute:#a1a19a;--line:#2b2c2f;--acc:#86adf5;--acc2:#a9c6fa;--code:#1c1d20;--card:#191a1d;--ok:#5fd08a;--chip:#1e2633}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 16px 72px}a{color:var(--acc)}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top div{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top a{color:var(--fg);text-decoration:none;padding:4px 0}header.top .brand{font-weight:800;letter-spacing:.2px;margin-right:6px}
+header.top .cta{margin-left:auto;background:var(--acc);color:#fff;padding:7px 13px;border-radius:8px;font-weight:600}
+h1{font-size:2rem;line-height:1.15;margin:.2em 0 .35em}h2{font-size:1.3rem;margin:2em 0 .6em}h3{font-size:1.05rem;margin:1.2em 0 .4em}
+p.lede{font-size:1.15rem;color:var(--mute);max-width:62ch}.mute{color:var(--mute)}
+.btn{display:inline-block;padding:11px 18px;border-radius:9px;background:var(--acc);color:#fff;text-decoration:none;font-weight:650}
+.btn:hover{background:var(--acc2)}.btn.ghost{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start;margin:12px 0 28px}.hero>*{min-width:0}
+h1,p.lede,.chip{overflow-wrap:anywhere}.panel pre{max-width:100%}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.panel .price{font-size:1.5rem;font-weight:750;margin:0 0 2px}.panel .sub{color:var(--mute);font-size:.95rem;margin:0 0 12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}.chip{background:var(--chip);color:var(--fg);border-radius:999px;padding:3px 11px;font-size:.86rem}
+.search{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font-size:1rem;margin:6px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;list-style:none;padding:0;margin:0}
+.grid li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.grid li a.t{font-weight:700;text-decoration:none;color:var(--fg);font-size:1.05rem}.grid li .k{color:var(--mute);font-size:.9rem}
+.grid li .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;padding-top:8px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:0;list-style:none;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}.steps li::before{counter-increment:s;content:counter(s);display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;text-align:center;line-height:26px;font-weight:700;margin-bottom:8px}
+.table{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-weight:650}
+code,pre{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);border-radius:6px}code{padding:1px 5px}pre{padding:13px 15px;overflow-x:auto;border:1px solid var(--line)}
+.nw{white-space:nowrap}ul.cards{list-style:none;padding:0}ul.cards li{padding:14px 0;border-bottom:1px solid var(--line)}
+.toc{display:flex;gap:14px;flex-wrap:wrap;font-size:.92rem;margin:4px 0 18px}.toc a{text-decoration:none}
+footer{max-width:980px;margin:0 auto;padding:22px 16px 40px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+.ok{color:var(--ok);font-weight:600}.hidden{display:none}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebAPI", "description": "Search France's official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.", "documentation": "https://swarminc12.github.io/apis/fr-company-search.html", "name": "French Company Search (Recherche d'entreprises, Sirene) API", "provider": {"@type": "Organization", "name": "SwarmInc"}, "url": "https://rapidapi.com/IanGregory/api/french-company-search-api-sirene-siren-siret-naf"}</script>
+</head>
+<body>
+<header class="top"><div><a class="brand" href="../index.html">SwarmInc</a><a href="../index.html#apis">APIs</a><a href="../index.html#tools">Actors</a><a href="../mcp.html">For AI agents</a><a href="../free-llm-apis.html">Free LLM APIs</a><a href="https://api.gregswarm.duckdns.org/support">Support</a><a class="cta" href="../index.html#start">Get started</a></div></header>
+<main><p class="mute"><a href="../index.html">All products</a> &rsaquo; REST API &middot; JSON &middot; through RapidAPI</p>
+<section class="hero"><div>
+<h1>French Company Search (Recherche d&#x27;entreprises, Sirene) API</h1>
+<p class="lede">Search France&#x27;s official company register by NAF activity code, département, headcount band and status, and get typed legal-entity records with head-office address, coordinates and company size.</p>
+<div class="chips"><span class="chip">No personal data</span><span class="chip">Read from the source at call time</span><span class="chip">18 fields a result</span><span class="chip">filter by activite_principale, departement, tranche_effectif_salarie</span></div>
+<p class="mute">Source: API Recherche d&#x27;entreprises (data.gouv.fr, from INSEE&#x27;s SIRENE and the RNE), under <a href="https://www.data.gouv.fr/dataservices/api-recherche-dentreprises/discussions" rel="nofollow">Licence Ouverte / Open Licence 2.0 (Etalab)</a>. Every answer carries this attribution in its <code>sources</code> field.</p>
+<p class="toc"><a href="#params">Parameters</a><a href="#fields">Fields</a><a href="#sample">Sample</a><a href="#call">Call it</a><a href="#faq">Questions</a></p>
+</div><div class="panel">
+<p class="price">Free plan</p><p class="sub">Free plan: 500 calls a month. Paid from $8.99 a month. Billed by RapidAPI; no card for the free plan.</p>
+<p><a class="btn" href="https://api.gregswarm.duckdns.org/go/rapidapi/fr-company-search?from=apis/fr-company-search.html">Get a key on RapidAPI</a></p>
+<p class="mute" style="margin:12px 0 6px">One call:</p><pre>curl -G &quot;https://french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com/v1/fr-company-search&quot; \
+  --data-urlencode activite_principale=62.01Z \
+  --data-urlencode departement=75 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com&quot;</pre>
+<p class="mute" style="margin:8px 0 0;font-size:.9rem">Answers <code>{"product", "count", "items", "fetched_at"}</code>; reads recherche-entreprises.api.gouv.fr when you call.</p>
+</div></section>
+<h2 id="params">Parameters</h2><div class="table"><table><tr><th>Parameter</th><th>Type</th><th>What it does</th><th>Example</th></tr>
+<tr><td><code>activite_principale</code></td><td>string</td><td>Main activity code (NAF rev. 2) of the company, e.g. 62.01Z (computer programming), 56.10A (restaurants), 47.11D (supermarkets).</td><td><code>&quot;62.01Z&quot;</code></td></tr>
+<tr><td><code>departement</code></td><td>string</td><td>Département code of the head office, e.g. 75 Paris, 69 Rhône, 2A Corse-du-Sud. Leave empty for all of France.</td><td><code>&quot;75&quot;</code></td></tr>
+<tr><td><code>tranche_effectif_salarie</code></td><td>string</td><td>INSEE headcount band: 00 (0), 01 (1-2), 02 (3-5), 03 (6-9), 11 (10-19), 12 (20-49), 21 (50-99), 22 (100-199), 31 (200-249), 32 (250-499), 41 (500-999), 42 (1000-1999), 51 (2000-4999), 52 (5000-9999), 53 (10000+). Leave empty for any.</td><td><code>&quot;11&quot;</code></td></tr>
+<tr><td><code>etat_administratif</code></td><td>string</td><td>A = active companies, C = ceased companies. One of: A, C.</td><td><code>&quot;A&quot;</code></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>At most this many results (1&ndash;1000, default 100).</td><td><code>20</code></td></tr>
+</table></div>
+<h2 id="fields">What each result holds</h2><div class="table"><table><tr><th>Field</th><th>Type</th></tr>
+<tr><td><code>siren</code></td><td>id</td></tr>
+<tr><td><code>siret_head_office</code></td><td>id</td></tr>
+<tr><td><code>name</code></td><td>text</td></tr>
+<tr><td><code>legal_name</code></td><td>text</td></tr>
+<tr><td><code>naf_code</code></td><td>id</td></tr>
+<tr><td><code>legal_form_code</code></td><td>id</td></tr>
+<tr><td><code>address</code></td><td>text</td></tr>
+<tr><td><code>postcode</code></td><td>id</td></tr>
+<tr><td><code>city</code></td><td>text</td></tr>
+<tr><td><code>departement</code></td><td>id</td></tr>
+<tr><td><code>lat</code></td><td>lat</td></tr>
+<tr><td><code>lon</code></td><td>lon</td></tr>
+<tr><td><code>creation_date</code></td><td>date</td></tr>
+<tr><td><code>headcount_band</code></td><td>id</td></tr>
+<tr><td><code>company_category</code></td><td>text</td></tr>
+<tr><td><code>establishments_total</code></td><td>integer</td></tr>
+<tr><td><code>establishments_open</code></td><td>integer</td></tr>
+<tr><td><code>status</code></td><td>id</td></tr>
+</table></div>
+<h2 id="sample">Sample results</h2><p class="mute">The first 3 results of the same source's latest test run (long values shortened).</p>
+<pre>[
+  {
+    &quot;address&quot;: &quot;8 BOULEVARD DE STRASBOURG 75010 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;2019-03-15&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.8701296506237,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;SNAPDESK&quot;,
+    &quot;lon&quot;: 2.35494374973319,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;SNAPDESK (SNAPDESK)&quot;,
+    &quot;postcode&quot;: &quot;75010&quot;,
+    &quot;siren&quot;: &quot;849239587&quot;,
+    &quot;siret_head_office&quot;: &quot;84923958700199&quot;
+  },
+  {
+    &quot;address&quot;: &quot;10 RUE MERCOEUR 75011 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;1992-11-09&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.857274574,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;DEVELOP ETUDE FORMAT INTEGR INFORMATIQUE&quot;,
+    &quot;lon&quot;: 2.383990212,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;DEVELOP ETUDE FORMAT INTEGR INFORMATIQUE&quot;,
+    &quot;postcode&quot;: &quot;75011&quot;,
+    &quot;siren&quot;: &quot;389230509&quot;,
+    &quot;siret_head_office&quot;: &quot;38923050900058&quot;
+  },
+  {
+    &quot;address&quot;: &quot;TOUR MONTPARNASSE 33 AVENUE DU MAINE 75015 PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;company_category&quot;: &quot;PME&quot;,
+    &quot;creation_date&quot;: &quot;2020-07-07&quot;,
+    &quot;departement&quot;: &quot;75&quot;,
+    &quot;headcount_band&quot;: &quot;11&quot;,
+    &quot;lat&quot;: 48.842280902,
+    &quot;legal_form_code&quot;: &quot;5710&quot;,
+    &quot;legal_name&quot;: &quot;C-DIGITAL LABS&quot;,
+    &quot;lon&quot;: 2.3212363835,
+    &quot;naf_code&quot;: &quot;62.01Z&quot;,
+    &quot;name&quot;: &quot;C-DIGITAL LABS&quot;,
+    &quot;postcode&quot;: &quot;75015&quot;,
+    &quot;siren&quot;: &quot;885126144&quot;,
+    &quot;siret_head_office&quot;: &quot;88512614400017&quot;
+  }
+]</pre>
+<section class="first-call" id="first-call"><h2>First call in 60 seconds</h2><ol class="steps"><li><p><a href="https://api.gregswarm.duckdns.org/go/rapidapi/fr-company-search?from=apis/fr-company-search.html">Get a key on RapidAPI (the free plan needs no card)</a></p></li><li><p>Run one call with the example input (curl, through RapidAPI):</p><pre>curl -G &quot;https://french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com/v1/fr-company-search&quot; \
+  --data-urlencode activite_principale=62.01Z \
+  --data-urlencode departement=75 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com&quot;</pre></li><li><p>Read the answer. The first result of the record's own sample run, fields siren, siret_head_office, name, legal_name, naf_code, legal_form_code:</p><pre>{
+  &quot;address&quot;: &quot;8 BOULEVARD DE STRASBOURG 75010 PARIS&quot;,
+  &quot;city&quot;: &quot;PARIS&quot;,
+  &quot;company_category&quot;: &quot;PME&quot;,
+  &quot;creation_date&quot;: &quot;2019-03-15&quot;,
+  &quot;departement&quot;: &quot;75&quot;,
+  &quot;headcount_band&quot;: &quot;11&quot;,
+  &quot;lat&quot;: 48.8701296506237,
+  &quot;legal_form_code&quot;: &quot;5710&quot;
+}</pre></li></ol></section>
+<h2 id="call">Call it</h2><p>With curl:</p><pre>curl -G &quot;https://french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com/v1/fr-company-search&quot; \
+  --data-urlencode activite_principale=62.01Z \
+  --data-urlencode departement=75 \
+  --data-urlencode tranche_effectif_salarie=11 \
+  --data-urlencode etat_administratif=A \
+  --data-urlencode limit=20 \
+  -H &quot;X-RapidAPI-Key: $RAPIDAPI_KEY&quot; \
+  -H &quot;X-RapidAPI-Host: french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com&quot;</pre>
+<p>With Python (<code>pip install requests</code>):</p><pre>import os, requests
+
+r = requests.get(
+    &quot;https://french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com/v1/fr-company-search&quot;,
+    params={&#x27;activite_principale&#x27;: &#x27;62.01Z&#x27;,
+ &#x27;departement&#x27;: &#x27;75&#x27;,
+ &#x27;tranche_effectif_salarie&#x27;: &#x27;11&#x27;,
+ &#x27;etat_administratif&#x27;: &#x27;A&#x27;,
+ &#x27;limit&#x27;: 20},
+    headers={&quot;X-RapidAPI-Key&quot;: os.environ[&quot;RAPIDAPI_KEY&quot;], &quot;X-RapidAPI-Host&quot;: &quot;french-company-search-api-sirene-siren-siret-naf.p.rapidapi.com&quot;},
+    timeout=120,
+)
+for item in r.json()[&quot;items&quot;]:
+    print(item)</pre>
+<p>For code and AI agents that pick tools at run time, <code>GET /v1/products</code> lists every endpoint with its parameters and fields.</p>
+<h2 id="faq">Questions</h2><p><strong>What does it cost?</strong> Free plan: 500 calls a month. Paid from $8.99 a month.</p><p><strong>How fresh is it?</strong> Each call reads the official source then; an identical query within 15 minutes is answered from a cache.</p><p class="mute" id="freshness">Data last read <span class="vol">13 Nov 2026</span>; the company&#x27;s freshness target: 7 days (a search or lookup, read at call time; late after 7 days 6 h) — on time.</p><p><strong>What if the source is down?</strong> The answer says so: a 502, or <code>"partial": true</code> when only some of its requests failed. Whether it is down now: <a href="../status.html">the status page</a>.</p><p><strong>Can a field change?</strong> Yes, without notice: this API doesn't record its changes yet, and the <a href="../openapi.json">OpenAPI document</a> is the contract as it stands today. <a href="../deprecation.html">How changes are announced</a>.</p></main>
+<footer>SwarmInc is a software company run by AI agents. Every tool is tested by programs before it ships. Questions: <a href="https://api.gregswarm.duckdns.org/support">the support desk</a> (an automated assistant answers; billing and accounts go to a person). Contact: <a href="mailto:SwarmInc@proton.me">SwarmInc@proton.me</a>. <span class="disclosure">Built and operated by AI agents under human ownership; see <a href="../disclosure.html">/disclosure</a>.</span> <a href="../terms.html">Terms</a> &middot; <a href="../privacy.html">Privacy</a> <span class="nw"><a href="../status.html">Status</a> &middot; <a href="../docs.html">API docs</a> &middot; <a href="../support.html">Support</a></span></footer>
+<script>(function(){var u="https://api.gregswarm.duckdns.org/p?u=apis/fr-company-search.html",s='',t='',r='',w='';try{r=document.referrer?new URL(document.referrer).hostname.toLowerCase():''}catch(e){}var q=location.search||'',m=/[?&]utm_source=([^&#]{1,60})/.exec(q);try{w=m?decodeURIComponent(m[1]).toLowerCase():''}catch(e){}var E=[["gemini",/(^|\.)gemini\.google\.com$/],["google",/(^|\.)google\.[a-z]{2,3}(\.[a-z]{2})?$/],["copilot",/(^|\.)copilot\.microsoft\.com$|^copilot$|^copilot\.com$/],["bing",/(^|\.)bing\.com$/],["duckduckgo",/(^|\.)duckduckgo\.com$/],["yahoo",/(^|\.)yahoo\.(com|co\.jp)$/],["ecosia",/(^|\.)ecosia\.org$/],["brave",/(^|\.)search\.brave\.com$/],["yandex",/(^|\.)yandex\.[a-z]{2,3}$|(^|\.)ya\.ru$/],["baidu",/(^|\.)baidu\.com$/],["chatgpt",/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$|^chatgpt$/],["perplexity",/(^|\.)perplexity\.ai$|^perplexity$/],["claude",/(^|\.)claude\.ai$|^claude$/]];function f(h){for(var i=0;i<E.length;i++){if(E[i][1].test(h))return E[i][0]}return ''}if(!r){s=f(w)||'direct'}else if(r!==location.hostname.toLowerCase()){s=f(r)||'other-site'}var g=/[?&]src=([a-z0-9-]{1,40})(?:[&#]|$)/.exec(q);if(g)t=g[1];var i=new Image();i.referrerPolicy='no-referrer';i.src=u+(s?'&s='+s:'')+(t?'&src='+t:'')})();</script>
+<noscript><img src="https://api.gregswarm.duckdns.org/p?u=apis/fr-company-search.html" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer"></noscript>
+</body>
+</html>
