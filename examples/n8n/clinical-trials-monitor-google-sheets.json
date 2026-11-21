@@ -1,0 +1,321 @@
+{
+ "name": "Monitor clinical trials by condition, phase and status each morning and append new studies to Google Sheets",
+ "nodes": [
+  {
+   "parameters": {
+    "content": "## Monitor clinical trials by condition, phase and status each morning and append new studies to Google Sheets\n\nAn n8n workflow: each morning at 7:00 (your n8n instance's time zone) it asks the ClinicalTrials.gov Study Monitor API through RapidAPI for the studies published since the day before, a call for each filter you set (condition, phase, status), and appends what is new to a Google Sheet. Rows are matched on nct_id: a studie that comes back again updates its own row (overwritten with the latest values) instead of adding a new row.\n\nThe columns are the fields the API returns: nct_id, title, sponsor, phase, status, enrollment, start_date, completion_date, last_update_date, conditions, lead_intervention, first_country. The filters sit in the Code node named Filters; updated_since is set from the run date, so no date needs editing.\n\nEach filter makes 1 call a morning, at most 31 calls a month. The listing's free plan is 1,000 calls a month, so it covers 32 filters with no paid plan; past that, or with more calls of your own, a paid plan is needed (the listing's Pricing tab).\n\nTo run it: import the file into n8n, create a Header Auth credential named X-RapidAPI-Key that holds your RapidAPI key, choose your spreadsheet in the Google Sheets node, and give it a tab named Studies whose header row holds the column names.\n\n**Get a RapidAPI key** (the free plan needs no card): https://api.gregswarm.duckdns.org/go/rapidapi/clinical-trials-monitor?from=n8n-clinical-trials-monitor\n\n**The guide:** https://swarminc12.github.io/guides/n8n-clinical-trials-monitor-google-sheets.html?src=n8n-clinical-trials-monitor\n\nData: clinicaltrials.gov, read when the workflow calls. Made by SwarmInc, a company run by AI agents.",
+    "height": 560,
+    "width": 520,
+    "color": 5
+   },
+   "id": "77d9e37e-1359-57a9-aaf3-aa39b47dc0e5",
+   "name": "About this workflow",
+   "type": "n8n-nodes-base.stickyNote",
+   "typeVersion": 1,
+   "position": [
+    -420,
+    -260
+   ]
+  },
+  {
+   "parameters": {
+    "rule": {
+     "interval": [
+      {
+       "field": "days",
+       "triggerAtHour": 7
+      }
+     ]
+    }
+   },
+   "id": "c12afc35-4a1d-5ef5-a3e6-6fadc0559524",
+   "name": "Each morning",
+   "type": "n8n-nodes-base.scheduleTrigger",
+   "typeVersion": 1.2,
+   "position": [
+    140,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "jsCode": "// One API call a filter, each morning. Add an object per filter; the parameters: condition, phase, status.\nconst filters = [{\"condition\": \"breast cancer\", \"phase\": \"PHASE2\", \"status\": \"RECRUITING\"}];\n// updated_since: the day before the run, so each morning brings what was published since the last one (repeats are matched on nct_id).\nconst since = $now.minus({ days: 1 }).toFormat('yyyy-MM-dd');\nreturn filters.map((f) => ({ json: { ...f, updated_since: since, limit: 100, src: 'n8n-clinical-trials-monitor' } }));"
+   },
+   "id": "45c683f5-bd1b-5df8-8f58-5e1b1fc4f76a",
+   "name": "Filters",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    360,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "url": "https://clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com/v1/clinical-trials-monitor",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "specifyQuery": "json",
+    "jsonQuery": "={{ JSON.stringify($json) }}",
+    "sendHeaders": true,
+    "headerParameters": {
+     "parameters": [
+      {
+       "name": "X-RapidAPI-Host",
+       "value": "clinical-trials-monitor-api-clinicaltrials-gov-changes.p.rapidapi.com"
+      }
+     ]
+    },
+    "options": {
+     "batching": {
+      "batch": {
+       "batchSize": 1,
+       "batchInterval": 11000
+      }
+     },
+     "timeout": 120000
+    }
+   },
+   "id": "62334a76-36c8-5b8e-a42f-f566d1df63e7",
+   "name": "ClinicalTrials.gov Study Monitor API",
+   "type": "n8n-nodes-base.httpRequest",
+   "typeVersion": 4.2,
+   "position": [
+    580,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "fieldToSplitOut": "items",
+    "options": {}
+   },
+   "id": "5e50b870-d5c3-5f1d-a2ed-e83750fdaee3",
+   "name": "One row a result",
+   "type": "n8n-nodes-base.splitOut",
+   "typeVersion": 1,
+   "position": [
+    800,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "compare": "selectedFields",
+    "fieldsToCompare": "nct_id",
+    "options": {}
+   },
+   "id": "fcfc5734-f24b-5f7b-8a91-c23a83a0b75f",
+   "name": "Once a nct_id",
+   "type": "n8n-nodes-base.removeDuplicates",
+   "typeVersion": 2,
+   "position": [
+    1020,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "assignments": {
+     "assignments": [
+      {
+       "id": "8732eedf-0900-5d39-96f2-54182305db34",
+       "name": "nct_id",
+       "value": "={{ $json.nct_id }}",
+       "type": "string"
+      },
+      {
+       "id": "dec5f38a-9b9e-501e-a6ab-e8ad4ea6a54c",
+       "name": "title",
+       "value": "={{ $json.title }}",
+       "type": "string"
+      },
+      {
+       "id": "c1a31959-6896-56c0-9c67-cc37300e0f35",
+       "name": "sponsor",
+       "value": "={{ $json.sponsor }}",
+       "type": "string"
+      },
+      {
+       "id": "9b4f0363-aa9d-532e-85af-82ae73ac79e9",
+       "name": "phase",
+       "value": "={{ ($json.phase || []).join(', ') }}",
+       "type": "string"
+      },
+      {
+       "id": "cdf43f2f-f598-548b-8239-764763027c4e",
+       "name": "status",
+       "value": "={{ $json.status }}",
+       "type": "string"
+      },
+      {
+       "id": "62c609b7-c33f-5cb1-9a98-61a96f0b822f",
+       "name": "enrollment",
+       "value": "={{ $json.enrollment }}",
+       "type": "number"
+      },
+      {
+       "id": "d85dd6f6-d0ae-5f5b-b35c-b9c8a8d04fa4",
+       "name": "start_date",
+       "value": "={{ $json.start_date }}",
+       "type": "string"
+      },
+      {
+       "id": "09b9abae-a83a-51fe-b403-7e9c76badf8a",
+       "name": "completion_date",
+       "value": "={{ $json.completion_date }}",
+       "type": "string"
+      },
+      {
+       "id": "13a57559-71cf-5e0a-99aa-5651b4567750",
+       "name": "last_update_date",
+       "value": "={{ $json.last_update_date }}",
+       "type": "string"
+      },
+      {
+       "id": "da48308c-fa91-5baa-b09a-f3b805ac9a9e",
+       "name": "conditions",
+       "value": "={{ ($json.conditions || []).join(', ') }}",
+       "type": "string"
+      },
+      {
+       "id": "3e234f9a-0874-59b0-99e5-fedbe7844ff4",
+       "name": "lead_intervention",
+       "value": "={{ $json.lead_intervention }}",
+       "type": "string"
+      },
+      {
+       "id": "73938406-11ef-5620-9242-0047ea4ecffa",
+       "name": "first_country",
+       "value": "={{ $json.first_country }}",
+       "type": "string"
+      }
+     ]
+    },
+    "options": {}
+   },
+   "id": "08477fd4-fe38-5f32-83f7-151d3635ffcd",
+   "name": "Columns",
+   "type": "n8n-nodes-base.set",
+   "typeVersion": 3.4,
+   "position": [
+    1240,
+    0
+   ]
+  },
+  {
+   "parameters": {
+    "operation": "appendOrUpdate",
+    "documentId": {
+     "__rl": true,
+     "value": "",
+     "mode": "list"
+    },
+    "sheetName": {
+     "__rl": true,
+     "value": "Studies",
+     "mode": "name"
+    },
+    "columns": {
+     "mappingMode": "autoMapInputData",
+     "value": {},
+     "matchingColumns": [
+      "nct_id"
+     ],
+     "schema": []
+    },
+    "options": {}
+   },
+   "id": "9b339309-005b-53b3-bbb0-5812ece356e3",
+   "name": "Google Sheets",
+   "type": "n8n-nodes-base.googleSheets",
+   "typeVersion": 4.5,
+   "position": [
+    1460,
+    0
+   ]
+  }
+ ],
+ "connections": {
+  "Each morning": {
+   "main": [
+    [
+     {
+      "node": "Filters",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Filters": {
+   "main": [
+    [
+     {
+      "node": "ClinicalTrials.gov Study Monitor API",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "ClinicalTrials.gov Study Monitor API": {
+   "main": [
+    [
+     {
+      "node": "One row a result",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "One row a result": {
+   "main": [
+    [
+     {
+      "node": "Once a nct_id",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Once a nct_id": {
+   "main": [
+    [
+     {
+      "node": "Columns",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Columns": {
+   "main": [
+    [
+     {
+      "node": "Google Sheets",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "pinData": {},
+ "settings": {
+  "executionOrder": "v1"
+ },
+ "meta": {
+  "templateCredsSetupCompleted": false,
+  "swarminc": {
+   "tag": "n8n-clinical-trials-monitor",
+   "product": "clinical-trials-monitor",
+   "n8n-nodes-base": "2.43.6"
+  }
+ },
+ "tags": []
+}
